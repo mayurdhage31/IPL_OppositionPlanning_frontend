@@ -1852,7 +1852,7 @@ TEAM_INSIGHTS = {
 VENUE_INSIGHTS = {
     "Arun Jaitley Stadium, Delhi": {
         "insights": [
-            "High-scoring venue with average score of 202.05 runs per match",
+            "High-scoring venue with average score of 202.05 runs per innings",
             "Balanced conditions for both innings (1st Inn: 201.47, 2nd Inn: 191.48)",
             "Good boundary percentage of 22.39% favors aggressive batting",
             "Pace bowlers dominate with 60.22% of wickets",
@@ -1870,7 +1870,7 @@ VENUE_INSIGHTS = {
     },
     "Eden Gardens, Kolkata": {
         "insights": [
-            "High-scoring venue averaging 186.22 runs per match",
+            "High-scoring venue averaging 186.22 runs per innings",
             "Excellent boundary percentage of 22.76% encourages big hits",
             "Balanced bowling conditions (Pace: 60.82%, Spin: 39.18%)",
             "Middle overs provide good scoring opportunities (75.28 runs)"
@@ -1878,7 +1878,7 @@ VENUE_INSIGHTS = {
     },
     "Wankhede Stadium, Mumbai": {
         "insights": [
-            "Traditional high-scoring venue averaging 172.67 runs per match",
+            "Traditional high-scoring venue averaging 172.67 runs per innings",
             "Excellent batting conditions in powerplay with 47.11 runs average",
             "Good boundary hitting opportunities with 19.65% boundary percentage",
             "Balanced pitch for both pace and spin (Pace: 69.50%, Spin: 30.50%)",
@@ -1887,7 +1887,7 @@ VENUE_INSIGHTS = {
     },
     "Sawai Mansingh Stadium, Jaipur": {
         "insights": [
-            "High-scoring venue with average score of 179.26 runs per match",
+            "High-scoring venue with average score of 179.26 runs per innings",
             "Good boundary percentage of 20.18% supports aggressive batting",
             "Strong powerplay scoring with average of 101.47 runs",
             "Death overs average of 45.24 runs provides finishing opportunities"
@@ -1895,7 +1895,7 @@ VENUE_INSIGHTS = {
     },
     "Rajiv Gandhi International Stadium, Uppal, Hyderabad": {
         "insights": [
-            "Batting-friendly venue averaging 180.87 runs per match",
+            "Batting-friendly venue averaging 180.87 runs per innings",
             "Pace bowlers dominate with 74.07% of wickets taken",
             "Excellent boundary percentage of 21.56% encourages big hits",
             "Middle overs provide good scoring opportunities (76.13 runs)"
@@ -1903,7 +1903,7 @@ VENUE_INSIGHTS = {
     },
     "MA Chidambaram Stadium, Chepauk, Chennai": {
         "insights": [
-            "Moderate scoring venue with average of 160.98 runs per match",
+            "Moderate scoring venue with average of 160.98 runs per innings",
             "Lower boundary percentage of 16.31% requires smart batting",
             "Powerplay scoring average of 49.81 runs",
             "Death overs average of 39.16 runs demands strategic finishing"
@@ -1911,7 +1911,7 @@ VENUE_INSIGHTS = {
     },
     "Narendra Modi Stadium, Ahmedabad": {
         "insights": [
-            "High-scoring venue averaging 182.41 runs per match",
+            "High-scoring venue averaging 182.41 runs per innings",
             "Pace bowlers take 69.61% of wickets - challenging conditions",
             "Good boundary percentage of 20.10% supports aggressive play",
             "Strong powerplay scoring with 50.63 runs average",
@@ -1920,7 +1920,7 @@ VENUE_INSIGHTS = {
     },
     "Punjab Cricket Association IS Bindra Stadium, Mohali, Chandigarh": {
         "insights": [
-            "High-scoring venue with average of 185.6 runs per match",
+            "High-scoring venue with average of 185.6 runs per innings",
             "Pace bowlers dominate with 72.95% of wickets",
             "Excellent boundary percentage of 21.11% favors aggressive batting",
             "Strong powerplay phase with 52.5 runs average",
@@ -1929,7 +1929,7 @@ VENUE_INSIGHTS = {
     },
     "Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow": {
         "insights": [
-            "Moderate scoring venue with average of 166.91 runs per match",
+            "Moderate scoring venue with average of 166.91 runs per innings",
             "Pace bowlers dominate with 67.47% of wickets taken",
             "Moderate boundary percentage of 17.80% requires smart batting approach",
             "Powerplay scoring average of 98.09 runs",
@@ -1938,7 +1938,7 @@ VENUE_INSIGHTS = {
     },
     "Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium, Visakhapatnam": {
         "insights": [
-            "Highest-scoring venue averaging 193.62 runs per match",
+            "Highest-scoring venue averaging 193.62 runs per innings",
             "Pace bowlers dominate with 68.74% of wickets taken",
             "Excellent boundary percentage of 23.10% encourages big hits",
             "Strong powerplay scoring with 53 runs average",
@@ -1956,7 +1956,7 @@ VENUE_INSIGHTS = {
     },
     "Maharashtra Cricket Association Stadium, Pune": {
         "insights": [
-            "Lower-scoring venue with average of 158.0 runs per match",
+            "Lower-scoring venue with average of 158.0 runs per innings",
             "Pace bowlers dominate with 71.90% of wickets taken",
             "Moderate boundary percentage of 16.59% requires patient batting",
             "Powerplay scoring average of 39.85 runs",
@@ -1965,7 +1965,7 @@ VENUE_INSIGHTS = {
     },
     "Brabourne Stadium, Mumbai": {
         "insights": [
-            "Moderate-high scoring venue averaging 170.72 runs per match",
+            "Moderate-high scoring venue averaging 170.72 runs per innings",
             "Balanced bowling conditions (Pace: 60.40%, Spin: 39.60%)",
             "Good boundary percentage of 19.81% supports aggressive batting",
             "Powerplay scoring average of 48.03 runs",
@@ -1974,7 +1974,7 @@ VENUE_INSIGHTS = {
     },
     "Dr DY Patil Sports Academy, Mumbai": {
         "insights": [
-            "Moderate scoring venue with average of 164.32 runs per match",
+            "Moderate scoring venue with average of 164.32 runs per innings",
             "Pace bowlers heavily dominate with 69.97% of wickets",
             "Lower boundary percentage of 17.05% requires smart shot selection",
             "Powerplay scoring average of 43.18 runs",
@@ -1983,7 +1983,7 @@ VENUE_INSIGHTS = {
     },
     "Barsapara Cricket Stadium, Guwahati": {
         "insights": [
-            "Lower-scoring venue with average of 168.1 runs per match",
+            "Lower-scoring venue with average of 168.1 runs per innings",
             "Balanced bowling conditions (Pace: 58.39%, Spin: 41.61%)",
             "Moderate boundary percentage of 18.07% requires patient approach",
             "Powerplay scoring average of 50.2 runs",
@@ -1992,7 +1992,7 @@ VENUE_INSIGHTS = {
     },
     "Maharaja Yadavindra Singh International Cricket Stadium, New Chandigarh": {
         "insights": [
-            "Moderate scoring venue averaging 164.55 runs per match",
+            "Moderate scoring venue averaging 164.55 runs per innings",
             "Pace bowlers dominate with 66.22% of wickets taken",
             "Moderate boundary percentage of 18.32% requires smart batting",
             "Powerplay scoring average of 50.41 runs",

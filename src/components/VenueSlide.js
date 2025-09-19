@@ -49,27 +49,41 @@ const VenueSlide = ({ venueName }) => {
           </ul>
         </div>
 
-        {/* Additional Venue Statistics */}
+        {/* Venue Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="insight-card">
-            <h4 className="text-lg font-semibold text-teal-400 mb-2">Batting Conditions</h4>
-            <p className="text-sm text-gray-200">
-              This venue provides balanced conditions for batting with good scoring opportunities throughout the innings.
-            </p>
+          <div className="stat-item">
+            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Average Score</h4>
+            <p className="text-2xl font-bold text-white">176.08</p>
           </div>
 
-          <div className="insight-card">
-            <h4 className="text-lg font-semibold text-teal-400 mb-2">Bowling Analysis</h4>
-            <p className="text-sm text-gray-200">
-              Both pace and spin bowlers find assistance at this venue, making it crucial to have a balanced bowling attack.
-            </p>
+          <div className="stat-item">
+            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Average First Innings Score</h4>
+            <p className="text-2xl font-bold text-white">184.71</p>
           </div>
 
-          <div className="insight-card">
-            <h4 className="text-lg font-semibold text-teal-400 mb-2">Match Strategy</h4>
-            <p className="text-sm text-gray-200">
-              Teams should focus on building partnerships and capitalizing on boundary-hitting opportunities.
-            </p>
+          <div className="stat-item">
+            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Wickets by Spinners per Match</h4>
+            <p className="text-2xl font-bold text-white">3.73</p>
+          </div>
+
+          <div className="stat-item">
+            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Wickets by Pacers per Match</h4>
+            <p className="text-2xl font-bold text-white">7.61</p>
+          </div>
+
+          <div className="stat-item">
+            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Boundary % per Match</h4>
+            <p className="text-2xl font-bold text-white">20.02%</p>
+          </div>
+
+          <div className="stat-item">
+            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Boundary % (First Innings)</h4>
+            <p className="text-2xl font-bold text-white">20.22%</p>
+          </div>
+
+          <div className="stat-item">
+            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Boundary % (Second Innings)</h4>
+            <p className="text-2xl font-bold text-white">19.99%</p>
           </div>
         </div>
       </div>
