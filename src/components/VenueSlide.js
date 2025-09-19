@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:8000';
+import { API_BASE_URL } from '../config/api';
 
 const VenueSlide = ({ venueName }) => {
   const [insights, setInsights] = useState(null);

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SlideContainer from './components/SlideContainer';
 import Sidebar from './components/Sidebar';
-
-const API_BASE_URL = 'http://localhost:8000';
+import { API_BASE_URL, checkApiHealth } from './config/api';
 
 function App() {
   const [teams, setTeams] = useState([]);
@@ -15,6 +14,7 @@ function App() {
   const [teamPlayers, setTeamPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showSlides, setShowSlides] = useState(false);
+  const [apiStatus, setApiStatus] = useState('checking');
 
   useEffect(() => {
     fetchInitialData();
@@ -28,6 +28,16 @@ function App() {
 
   const fetchInitialData = async () => {
     try {
+      // Check API health first
+      const isApiHealthy = await checkApiHealth();
+      setApiStatus(isApiHealthy ? 'connected' : 'disconnected');
+      
+      if (!isApiHealthy) {
+        console.warn('API is not responding, using fallback data if available');
+        setLoading(false);
+        return;
+      }
+
       const [teamsResponse, venuesResponse] = await Promise.all([
         axios.get(`${API_BASE_URL}/teams`),
         axios.get(`${API_BASE_URL}/venues`)
@@ -38,6 +48,7 @@ function App() {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching initial data:', error);
+      setApiStatus('error');
       setLoading(false);
     }
   };
@@ -70,7 +81,21 @@ function App() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{backgroundColor: '#1a1f2e'}}>
-        <div className="text-xl" style={{color: '#10b981'}}>Loading...</div>
+        <div className="text-center">
+          <div className="text-xl mb-4" style={{color: '#10b981'}}>Loading...</div>
+          <div className="text-sm" style={{color: '#6b7280'}}>
+            Connecting to API: {API_BASE_URL}
+          </div>
+          {apiStatus === 'checking' && (
+            <div className="text-sm mt-2" style={{color: '#f59e0b'}}>Checking API status...</div>
+          )}
+          {apiStatus === 'disconnected' && (
+            <div className="text-sm mt-2" style={{color: '#ef4444'}}>API not responding</div>
+          )}
+          {apiStatus === 'error' && (
+            <div className="text-sm mt-2" style={{color: '#ef4444'}}>Connection error</div>
+          )}
+        </div>
       </div>
     );
   }
