@@ -11,7 +11,9 @@ const Sidebar = ({
   onTeamChange,
   onOppositionChange,
   onVenueChange,
-  onPlayerSelection
+  onPlayerSelection,
+  onGenerateInsights,
+  showSlides
 }) => {
   return (
     <div className="w-80 sidebar p-6 min-h-screen">
@@ -90,8 +92,12 @@ const Sidebar = ({
             ))}
           </div>
           
-          <button className="generate-button mt-4">
-            Generate Analysis
+          <button 
+            className="generate-button mt-4"
+            onClick={onGenerateInsights}
+            disabled={selectedPlayers.length === 0 && !selectedOpposition && !selectedVenue}
+          >
+            {showSlides ? 'Update Analysis' : 'Generate Insights'}
           </button>
         </div>
       )}

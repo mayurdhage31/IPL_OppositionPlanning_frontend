@@ -156,13 +156,33 @@ const ScatterPlot = ({ data, selectedPlayer, selectedTeam, type }) => {
             x={axisConfig.refX} 
             stroke="#6B7280" 
             strokeDasharray="5 5"
-            label={{ value: axisConfig.refX.toFixed(2), position: 'bottom' }}
+            label={{ 
+              value: axisConfig.refX.toFixed(2), 
+              position: 'insideTopRight',
+              offset: 10,
+              style: { 
+                textAnchor: 'middle', 
+                fontSize: '12px', 
+                fill: '#9CA3AF',
+                fontWeight: 'bold'
+              }
+            }}
           />
           <ReferenceLine 
             y={axisConfig.refY} 
             stroke="#6B7280" 
             strokeDasharray="5 5"
-            label={{ value: axisConfig.refY.toFixed(2), position: 'right' }}
+            label={{ 
+              value: axisConfig.refY.toFixed(2), 
+              position: 'insideTopRight',
+              offset: 10,
+              style: { 
+                textAnchor: 'middle', 
+                fontSize: '12px', 
+                fill: '#9CA3AF',
+                fontWeight: 'bold'
+              }
+            }}
           />
           
           <Tooltip content={<CustomTooltip />} />

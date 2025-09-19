@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PlayerSlide from './components/PlayerSlide';
-import TeamSlide from './components/TeamSlide';
-import VenueSlide from './components/VenueSlide';
+import SlideContainer from './components/SlideContainer';
 import Sidebar from './components/Sidebar';
 
 const API_BASE_URL = 'http://localhost:8000';
@@ -16,6 +14,7 @@ function App() {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [teamPlayers, setTeamPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showSlides, setShowSlides] = useState(false);
 
   useEffect(() => {
     fetchInitialData();
@@ -64,6 +63,10 @@ function App() {
     });
   };
 
+  const handleGenerateInsights = () => {
+    setShowSlides(true);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{backgroundColor: '#1a1f2e'}}>
@@ -87,31 +90,17 @@ function App() {
           onOppositionChange={setSelectedOpposition}
           onVenueChange={setSelectedVenue}
           onPlayerSelection={handlePlayerSelection}
+          onGenerateInsights={handleGenerateInsights}
+          showSlides={showSlides}
         />
 
         <main className="flex-1 p-6">
-          {selectedPlayers.map((player, index) => (
-            <PlayerSlide 
-              key={`player-${index}`} 
-              playerName={player} 
-              opposition={selectedOpposition}
-            />
-          ))}
-          
-          {selectedOpposition && (
-            <TeamSlide teamName={selectedOpposition} />
-          )}
-          
-          {selectedVenue && (
-            <VenueSlide venueName={selectedVenue} />
-          )}
-          
-          {selectedPlayers.length === 0 && !selectedOpposition && !selectedVenue && (
-            <div className="text-center mt-20" style={{color: '#10b981'}}>
-              <h2 className="text-2xl mb-4">Welcome to Opposition Planning AI</h2>
-              <p className="text-lg">Select teams, players, and venue from the sidebar to generate insights</p>
-            </div>
-          )}
+          <SlideContainer
+            selectedPlayers={selectedPlayers}
+            selectedOpposition={selectedOpposition}
+            selectedVenue={selectedVenue}
+            showSlides={showSlides}
+          />
         </main>
       </div>
     </div>
