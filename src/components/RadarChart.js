@@ -1,0 +1,108 @@
+import React from 'react';
+import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+
+const CustomRadarChart = ({ data, type }) => {
+  if (!data || !data.bowling_stats || !data.overall_averages) {
+    return (
+      <div className="text-center text-gray-400 py-8">
+        No bowling statistics available
+      </div>
+    );
+  }
+
+  // Transform data for radar chart
+  const radarData = Object.keys(data.overall_averages).map(bowlingType => ({
+    bowlingType: bowlingType.charAt(0).toUpperCase() + bowlingType.slice(1).toLowerCase().replace(/([A-Z])/g, ' $1').trim(),
+    playerTeamSR: data.bowling_stats[bowlingType] || 0,
+    overallAvg: data.overall_averages[bowlingType] || 0
+  }));
+
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-gray-800 border border-green-500 p-3 rounded-lg shadow-lg">
+          <p className="text-white font-semibold mb-2">{label}</p>
+          {payload.map((entry, index) => (
+            <p key={index} className="text-sm" style={{ color: entry.color }}>
+              <span className="font-medium">{entry.name}:</span> {entry.value?.toFixed(1)}
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <div className="w-full">
+      <ResponsiveContainer width="100%" height={400}>
+        <RadarChart data={radarData} margin={{ top: 20, right: 80, bottom: 20, left: 80 }}>
+          <PolarGrid stroke="#374151" />
+          <PolarAngleAxis 
+            dataKey="bowlingType" 
+            tick={{ fill: '#9CA3AF', fontSize: 12 }}
+            className="text-xs"
+          />
+          <PolarRadiusAxis 
+            angle={90} 
+            domain={[0, 200]} 
+            tick={{ fill: '#9CA3AF', fontSize: 10 }}
+          />
+          
+          {/* Overall Average Line */}
+          <Radar
+            name="Overall Average"
+            dataKey="overallAvg"
+            stroke="#f59e0b"
+            fill="#f59e0b"
+            fillOpacity={0.1}
+            strokeWidth={2}
+            strokeDasharray="5 5"
+          />
+          
+          {/* Player/Team Performance Line */}
+          <Radar
+            name={type === 'player' ? data.player : data.team}
+            dataKey="playerTeamSR"
+            stroke="#10b981"
+            fill="#10b981"
+            fillOpacity={0.2}
+            strokeWidth={3}
+          />
+          
+          <Tooltip content={<CustomTooltip />} />
+          <Legend 
+            wrapperStyle={{ 
+              paddingTop: '20px',
+              fontSize: '14px',
+              color: '#9CA3AF'
+            }}
+          />
+        </RadarChart>
+      </ResponsiveContainer>
+
+      {/* Legend and Stats */}
+      <div className="mt-6 flex items-center justify-center space-x-8">
+        <div className="flex items-center">
+          <div className="w-4 h-4 bg-green-500 rounded mr-2"></div>
+          <span className="text-sm text-white">{type === 'player' ? data.player : data.team}</span>
+        </div>
+        <div className="flex items-center">
+          <div className="w-4 h-4 border-2 border-orange-400 rounded mr-2" style={{borderStyle: 'dashed'}}></div>
+          <span className="text-sm text-white">Overall Average</span>
+        </div>
+      </div>
+      
+      {/* Selected bowling type stats */}
+      <div className="mt-4 text-center">
+        <div className="inline-block p-4 bg-gray-800 rounded-lg">
+          <div className="text-lg font-semibold text-white mb-1">Right arm pace</div>
+          <div className="text-sm text-orange-400">Overall Average: 127.1</div>
+          <div className="text-sm teal-accent">{type === 'player' ? data.player : data.team}: {radarData.find(item => item.bowlingType.includes('Right arm pace'))?.playerTeamSR?.toFixed(1) || 'N/A'}</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CustomRadarChart;
