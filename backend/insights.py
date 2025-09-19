@@ -1,4 +1,5 @@
 # Player insights data - comprehensive hardcoded data
+# Updated with latest manual changes - Sep 19, 2025
 PLAYER_INSIGHTS = {
     "Sai Sudharsan": {
         "ai_insights": [
