@@ -97,7 +97,7 @@ const Sidebar = ({
             onClick={onGenerateInsights}
             disabled={selectedPlayers.length === 0 && !selectedOpposition && !selectedVenue}
           >
-            {showSlides ? 'Update Analysis' : 'Generate Insights'}
+            Generate Insights
           </button>
         </div>
       )}

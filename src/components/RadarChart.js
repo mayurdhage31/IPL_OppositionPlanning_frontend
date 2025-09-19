@@ -81,26 +81,6 @@ const CustomRadarChart = ({ data, type }) => {
         </RadarChart>
       </ResponsiveContainer>
 
-      {/* Legend and Stats */}
-      <div className="mt-6 flex items-center justify-center space-x-8">
-        <div className="flex items-center">
-          <div className="w-4 h-4 bg-green-500 rounded mr-2"></div>
-          <span className="text-sm text-white">{type === 'player' ? data.player : data.team}</span>
-        </div>
-        <div className="flex items-center">
-          <div className="w-4 h-4 border-2 border-orange-400 rounded mr-2" style={{borderStyle: 'dashed'}}></div>
-          <span className="text-sm text-white">Overall Average</span>
-        </div>
-      </div>
-      
-      {/* Selected bowling type stats */}
-      <div className="mt-4 text-center">
-        <div className="inline-block p-4 bg-gray-800 rounded-lg">
-          <div className="text-lg font-semibold text-white mb-1">Right arm pace</div>
-          <div className="text-sm text-orange-400">Overall Average: 127.1</div>
-          <div className="text-sm teal-accent">{type === 'player' ? data.player : data.team}: {radarData.find(item => item.bowlingType.includes('Right arm pace'))?.playerTeamSR?.toFixed(1) || 'N/A'}</div>
-        </div>
-      </div>
     </div>
   );
 };

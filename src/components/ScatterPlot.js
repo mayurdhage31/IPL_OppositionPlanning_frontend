@@ -151,53 +151,7 @@ const ScatterPlot = ({ data, selectedPlayer, selectedTeam, type }) => {
             name={metric === 'average' ? '2nd Innings Average Score' : '2nd Innings Strike Rate'}
           />
           
-          {/* Average reference lines with labels */}
-          <ReferenceLine 
-            x={axisConfig.refX} 
-            stroke="#6B7280" 
-            strokeDasharray="5 5"
-            label={{ 
-              value: axisConfig.refX.toFixed(2), 
-              position: 'insideTopRight',
-              offset: 10,
-              style: { 
-                textAnchor: 'middle', 
-                fontSize: '12px', 
-                fill: '#9CA3AF',
-                fontWeight: 'bold'
-              }
-            }}
-          />
-          <ReferenceLine 
-            y={axisConfig.refY} 
-            stroke="#6B7280" 
-            strokeDasharray="5 5"
-            label={{ 
-              value: axisConfig.refY.toFixed(2), 
-              position: 'insideTopRight',
-              offset: 10,
-              style: { 
-                textAnchor: 'middle', 
-                fontSize: '12px', 
-                fill: '#9CA3AF',
-                fontWeight: 'bold'
-              }
-            }}
-          />
-          
           <Tooltip content={<CustomTooltip />} />
-        
-        {/* Legend for reference lines */}
-        <Legend 
-          content={() => (
-            <div className="flex justify-center mt-4 text-sm text-gray-400">
-              <div className="flex items-center">
-                <div className="w-6 h-0 border-t-2 border-dashed border-gray-500 mr-2"></div>
-                <span>Average Lines ({axisConfig.refX.toFixed(1)}, {axisConfig.refY.toFixed(1)})</span>
-              </div>
-            </div>
-          )}
-        />
           
           <Scatter
             data={plotData}
@@ -206,20 +160,6 @@ const ScatterPlot = ({ data, selectedPlayer, selectedTeam, type }) => {
         </ScatterChart>
       </ResponsiveContainer>
 
-      {/* Tooltip for selected player */}
-      {type === 'player' && selectedPlayer && plotData.find(p => p.isSelected) && (
-        <div className="mt-4 p-3 bg-gray-800 border border-gray-600 rounded-lg">
-          <div className="text-sm">
-            <div className="font-semibold teal-accent">{selectedPlayer}</div>
-            <div className="text-gray-300">
-              1st Inn {metric === 'average' ? 'Avg' : 'SR'}: {plotData.find(p => p.isSelected)?.x?.toFixed(1)}
-            </div>
-            <div className="text-gray-300">
-              2nd Inn {metric === 'average' ? 'Avg' : 'SR'}: {plotData.find(p => p.isSelected)?.y?.toFixed(1)}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
