@@ -148,6 +148,7 @@ const SlideContainer = ({
           <PlayerSlide 
             playerName={currentSlideData.data} 
             opposition={selectedOpposition}
+            selectedPlayers={selectedPlayers}
           />
         )}
         

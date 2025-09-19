@@ -5,7 +5,7 @@ import RadarChart from './RadarChart';
 
 const API_BASE_URL = 'http://localhost:8000';
 
-const PlayerSlide = ({ playerName, opposition }) => {
+const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
   const [insights, setInsights] = useState(null);
   const [bowlingStats, setBowlingStats] = useState(null);
   const [scatterData, setScatterData] = useState([]);
@@ -13,15 +13,16 @@ const PlayerSlide = ({ playerName, opposition }) => {
 
   useEffect(() => {
     fetchPlayerData();
-  }, [playerName]);
+  }, [playerName, selectedPlayers]);
 
   const fetchPlayerData = async () => {
     try {
       const timestamp = Date.now(); // Cache busting
+      const selectedPlayersParam = selectedPlayers ? selectedPlayers.join(',') : '';
       const [insightsResponse, bowlingStatsResponse, scatterResponse] = await Promise.all([
         axios.get(`${API_BASE_URL}/player/${playerName}/insights?t=${timestamp}`),
         axios.get(`${API_BASE_URL}/player/${playerName}/bowling-stats?t=${timestamp}`),
-        axios.get(`${API_BASE_URL}/scatter-plot-data?t=${timestamp}`)
+        axios.get(`${API_BASE_URL}/scatter-plot-data?selected_players=${encodeURIComponent(selectedPlayersParam)}&t=${timestamp}`)
       ]);
 
       setInsights(insightsResponse.data.insights);
