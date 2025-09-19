@@ -50,25 +50,10 @@ const VenueSlide = ({ venueName }) => {
         </div>
 
         {/* Venue Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="stat-item">
-            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Average Score</h4>
-            <p className="text-2xl font-bold text-white">176.08</p>
-          </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="stat-item">
             <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Average First Innings Score</h4>
             <p className="text-2xl font-bold text-white">184.71</p>
-          </div>
-
-          <div className="stat-item">
-            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Wickets by Spinners per Match</h4>
-            <p className="text-2xl font-bold text-white">3.73</p>
-          </div>
-
-          <div className="stat-item">
-            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Wickets by Pacers per Match</h4>
-            <p className="text-2xl font-bold text-white">7.61</p>
           </div>
 
           <div className="stat-item">
@@ -77,13 +62,13 @@ const VenueSlide = ({ venueName }) => {
           </div>
 
           <div className="stat-item">
-            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Boundary % (First Innings)</h4>
-            <p className="text-2xl font-bold text-white">20.22%</p>
+            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall % of Wickets by Pace Bowlers</h4>
+            <p className="text-2xl font-bold text-white">67.59%</p>
           </div>
 
           <div className="stat-item">
-            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall Boundary % (Second Innings)</h4>
-            <p className="text-2xl font-bold text-white">19.99%</p>
+            <h4 className="text-lg font-semibold text-teal-400 mb-2">Overall % of Wickets by Spin Bowlers</h4>
+            <p className="text-2xl font-bold text-white">32.41%</p>
           </div>
         </div>
       </div>
