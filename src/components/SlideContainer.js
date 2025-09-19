@@ -142,27 +142,8 @@ const SlideContainer = ({
         </button>
       </div>
 
-      {/* Slide Content */}
-      <div ref={slideRef} className="slide-content bg-gray-800 rounded-lg p-6 min-h-[600px]">
-        {currentSlideData.type === 'player' && (
-          <PlayerSlide 
-            playerName={currentSlideData.data} 
-            opposition={selectedOpposition}
-            selectedPlayers={selectedPlayers}
-          />
-        )}
-        
-        {currentSlideData.type === 'team' && (
-          <TeamSlide teamName={currentSlideData.data} />
-        )}
-        
-        {currentSlideData.type === 'venue' && (
-          <VenueSlide venueName={currentSlideData.data} />
-        )}
-      </div>
-
-      {/* Navigation Controls */}
-      <div className="flex justify-between items-center mt-6">
+      {/* Navigation Controls - Moved to Top */}
+      <div className="flex justify-between items-center mb-6">
         {/* Previous Button */}
         <button
           onClick={prevSlide}
@@ -202,6 +183,26 @@ const SlideContainer = ({
           </svg>
         </button>
       </div>
+
+      {/* Slide Content */}
+      <div ref={slideRef} className="slide-content bg-gray-800 rounded-lg p-6 min-h-[600px]">
+        {currentSlideData.type === 'player' && (
+          <PlayerSlide 
+            playerName={currentSlideData.data} 
+            opposition={selectedOpposition}
+            selectedPlayers={selectedPlayers}
+          />
+        )}
+        
+        {currentSlideData.type === 'team' && (
+          <TeamSlide teamName={currentSlideData.data} />
+        )}
+        
+        {currentSlideData.type === 'venue' && (
+          <VenueSlide venueName={currentSlideData.data} />
+        )}
+      </div>
+
 
       {/* Slide Counter */}
       <div className="text-center mt-4 text-gray-400 text-sm">

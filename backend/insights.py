@@ -1588,6 +1588,78 @@ PLAYER_INSIGHTS = {
         "Faces a high percentage of dot balls at 38.89% limiting scoring opportunities ",
         "Shows vulnerability in first innings with a strike rate of 10.86 "
       ]
+    },
+    "Trent Boult": {
+        "ai_insights": [
+            "Good economy rate of 11.45 in the powerplay phase (Rank: 51/125)",
+            "Strong dot ball percentage of 42.45% restricting scoring opportunities (Rank: 52/125)",
+            "Takes wickets regularly in the powerplay with a strike rate of 15.23 (Rank: 40/125)"
+        ],
+        "strengths": [
+            "Maintains a good economy rate of 6.82 in death overs (Rank: 5/125)",
+            "Creates pressure with a high dot ball percentage of 42.45% (Rank: 52/125)"
+        ],
+        "areas_for_improvement": [
+            "Powerplay economy rate of 11.45 needs improvement (Rank: 51/125)",
+            "Middle overs economy rate of 8.77 could be more effective (Rank: 45/125)"
+        ]
+    },
+    "Yuzvendra Chahal": {
+        "ai_insights": [
+            "Takes wickets regularly in the powerplay with a strike rate of 10.7 (Rank: 17/125)",
+            "Excellent wicket-taking ability in the death overs with a strike rate of 54.0 (Rank: 45/125)",
+            "Good economy rate of 8.72 in the powerplay phase (Rank: 13/125)"
+        ],
+        "strengths": [
+            "Consistent wicket-taking ability with an overall strike rate of 17.14 (Rank: 17/125)",
+            "Maintains a good overall economy rate of 7.91 throughout the innings (Rank: 19/125)"
+        ],
+        "areas_for_improvement": [
+            "First innings economy rate of 8.78 could be improved for greater impact (Rank: 37/125)"
+        ]
+    },
+    "Prasidh Krishna": {
+        "ai_insights": [
+            "Excellent wicket-taking ability in the death overs with a strike rate of 24.0 (Rank: 18/125)",
+            "Takes wickets regularly in the powerplay with a strike rate of 22.0 (Rank: 51/125)",
+            "Strong dot ball percentage of 42.63% restricting scoring opportunities (Rank: 54/125)"
+        ],
+        "strengths": [
+            "Consistent wicket-taking ability with an overall strike rate of 22.1 (Rank: 25/125)",
+            "Creates pressure with a high dot ball percentage of 42.63% (Rank: 54/125)"
+        ],
+        "areas_for_improvement": [
+            "Powerplay economy rate of 9.97 needs improvement (Rank: 31/125)",
+            "First innings economy rate of 8.48 could be improved for greater impact (Rank: 31/125)"
+        ]
+    },
+    "Mohammed Siraj": {
+        "ai_insights": [
+            "Excellent wicket-taking ability in the death overs with a strike rate of 31.58 (Rank: 33/125)",
+            "Good economy rate of 8.94 in the powerplay phase (Rank: 14/125)",
+            "Takes wickets regularly in the powerplay with a strike rate of 16.75 (Rank: 44/125)"
+        ],
+        "strengths": [
+            "Consistent wicket-taking ability with an overall strike rate of 24.54 (Rank: 35/125)",
+            "Maintains a good overall economy rate of 8.12 throughout the innings (Rank: 24/125)"
+        ],
+        "areas_for_improvement": [
+            "First innings economy rate of 7.81 could be improved for greater impact (Rank: 17/125)"
+        ]
+    },
+    "Josh Hazlewood": {
+        "ai_insights": [
+            "Excellent wicket-taking ability in the death overs with a strike rate of 24.23 (Rank: 19/125)",
+            "Takes wickets regularly in the powerplay with a strike rate of 10.62 (Rank: 16/125)",
+            "Strong dot ball percentage of 41.0% restricting scoring opportunities (Rank: 49/125)"
+        ],
+        "strengths": [
+            "Maintains a good economy rate of 7.75 in death overs (Rank: 14/125)",
+            "Maintains a good overall economy rate of 8.11 throughout the innings (Rank: 23/125)"
+        ],
+        "areas_for_improvement": [
+            "First innings economy rate of 8.82 could be improved for greater impact (Rank: 39/125)"
+        ]
     }
 }
 
@@ -1781,10 +1853,10 @@ VENUE_INSIGHTS = {
     "Arun Jaitley Stadium, Delhi": {
         "insights": [
             "High-scoring venue with average score of 202.05 runs per match",
-            "Balanced conditions for both innings (1st Inn: 201.47, 2nd Inn: Similar)",
+            "Balanced conditions for both innings (1st Inn: 201.47, 2nd Inn: 191.48)",
             "Good boundary percentage of 22.39% favors aggressive batting",
             "Pace bowlers dominate with 60.22% of wickets",
-            "Strong powerplay scoring with average of 118.68 runs"
+            "Strong powerplay scoring with average of 59.34 runs"
         ]
     },
     "M Chinnaswamy Stadium, Bengaluru": {
@@ -1792,8 +1864,8 @@ VENUE_INSIGHTS = {
             "Batting-friendly venue with average score of 184.45 runs",
             "Excellent boundary percentage of 21.30% supports aggressive play",
             "Pace bowlers take 73.33% of wickets - challenging for batsmen",
-            "Good powerplay scoring average of 104.37 runs",
-            "Death overs average of 93.44 runs provides finishing opportunities"
+            "Good powerplay scoring average of 52.19 runs",
+            "Death overs average of 47.22 runs provides finishing opportunities"
         ]
     },
     "Eden Gardens, Kolkata": {
@@ -1801,17 +1873,16 @@ VENUE_INSIGHTS = {
             "High-scoring venue averaging 186.22 runs per match",
             "Excellent boundary percentage of 22.76% encourages big hits",
             "Balanced bowling conditions (Pace: 60.82%, Spin: 39.18%)",
-            "Strong powerplay phase with 109.83 runs average",
-            "Middle overs provide good scoring opportunities (149.57 runs)"
+            "Middle overs provide good scoring opportunities (75.28 runs)"
         ]
     },
     "Wankhede Stadium, Mumbai": {
         "insights": [
             "Traditional high-scoring venue averaging 172.67 runs per match",
-            "Excellent batting conditions in powerplay with 94.14 runs average",
+            "Excellent batting conditions in powerplay with 47.11 runs average",
             "Good boundary hitting opportunities with 19.65% boundary percentage",
             "Balanced pitch for both pace and spin (Pace: 69.50%, Spin: 30.50%)",
-            "Strong death overs scoring potential with 88.62 runs average"
+            "Strong death overs scoring potential with 44.31 runs average"
         ]
     },
     "Sawai Mansingh Stadium, Jaipur": {
@@ -1819,7 +1890,7 @@ VENUE_INSIGHTS = {
             "High-scoring venue with average score of 179.26 runs per match",
             "Good boundary percentage of 20.18% supports aggressive batting",
             "Strong powerplay scoring with average of 101.47 runs",
-            "Death overs average of 89.47 runs provides finishing opportunities"
+            "Death overs average of 45.24 runs provides finishing opportunities"
         ]
     },
     "Rajiv Gandhi International Stadium, Uppal, Hyderabad": {
@@ -1827,16 +1898,15 @@ VENUE_INSIGHTS = {
             "Batting-friendly venue averaging 180.87 runs per match",
             "Pace bowlers dominate with 74.07% of wickets taken",
             "Excellent boundary percentage of 21.56% encourages big hits",
-            "Strong powerplay phase with 107.47 runs average",
-            "Middle overs provide good scoring opportunities (152.26 runs)"
+            "Middle overs provide good scoring opportunities (76.13 runs)"
         ]
     },
     "MA Chidambaram Stadium, Chepauk, Chennai": {
         "insights": [
             "Moderate scoring venue with average of 160.98 runs per match",
             "Lower boundary percentage of 16.31% requires smart batting",
-            "Powerplay scoring average of 99.62 runs",
-            "Death overs average of 78.33 runs demands strategic finishing"
+            "Powerplay scoring average of 49.81 runs",
+            "Death overs average of 39.16 runs demands strategic finishing"
         ]
     },
     "Narendra Modi Stadium, Ahmedabad": {
@@ -1844,8 +1914,8 @@ VENUE_INSIGHTS = {
             "High-scoring venue averaging 182.41 runs per match",
             "Pace bowlers take 69.61% of wickets - challenging conditions",
             "Good boundary percentage of 20.10% supports aggressive play",
-            "Strong powerplay scoring with 101.82 runs average",
-            "Death overs average of 89.29 runs provides finishing opportunities"
+            "Strong powerplay scoring with 50.63 runs average",
+            "Death overs average of 44.65 runs provides finishing opportunities"
         ]
     },
     "Punjab Cricket Association IS Bindra Stadium, Mohali, Chandigarh": {
@@ -1853,8 +1923,8 @@ VENUE_INSIGHTS = {
             "High-scoring venue with average of 185.6 runs per match",
             "Pace bowlers dominate with 72.95% of wickets",
             "Excellent boundary percentage of 21.11% favors aggressive batting",
-            "Strong powerplay phase with 105.0 runs average",
-            "Death overs average of 85.2 runs provides good finishing opportunities"
+            "Strong powerplay phase with 52.5 runs average",
+            "Death overs average of 42.6 runs provides good finishing opportunities"
         ]
     },
     "Bharat Ratna Shri Atal Bihari Vajpayee Ekana Cricket Stadium, Lucknow": {
@@ -1871,7 +1941,7 @@ VENUE_INSIGHTS = {
             "Highest-scoring venue averaging 193.62 runs per match",
             "Pace bowlers dominate with 68.74% of wickets taken",
             "Excellent boundary percentage of 23.10% encourages big hits",
-            "Strong powerplay scoring with 106.0 runs average",
+            "Strong powerplay scoring with 53 runs average",
             "Middle overs provide exceptional scoring opportunities (177.75 runs)"
         ]
     },
@@ -1880,8 +1950,8 @@ VENUE_INSIGHTS = {
             "Moderate-high scoring venue with 172.67 runs per match average",
             "Pace bowlers heavily dominate with 82.02% of wickets",
             "Excellent boundary percentage of 24.21% supports aggressive play",
-            "Strong powerplay phase with 101.33 runs average",
-            "Death overs average of 108.6 runs provides excellent finishing opportunities"
+            "Strong powerplay phase with 51.66 runs average",
+            "Death overs average of 54.4 runs provides excellent finishing opportunities"
         ]
     },
     "Maharashtra Cricket Association Stadium, Pune": {
@@ -1889,8 +1959,8 @@ VENUE_INSIGHTS = {
             "Lower-scoring venue with average of 158.0 runs per match",
             "Pace bowlers dominate with 71.90% of wickets taken",
             "Moderate boundary percentage of 16.59% requires patient batting",
-            "Powerplay scoring average of 79.69 runs",
-            "Death overs average of 85.23 runs demands strategic finishing"
+            "Powerplay scoring average of 39.85 runs",
+            "Death overs average of 42.62 runs demands strategic finishing"
         ]
     },
     "Brabourne Stadium, Mumbai": {
@@ -1898,8 +1968,8 @@ VENUE_INSIGHTS = {
             "Moderate-high scoring venue averaging 170.72 runs per match",
             "Balanced bowling conditions (Pace: 60.40%, Spin: 39.60%)",
             "Good boundary percentage of 19.81% supports aggressive batting",
-            "Powerplay scoring average of 99.06 runs",
-            "Death overs average of 82.25 runs provides finishing opportunities"
+            "Powerplay scoring average of 48.03 runs",
+            "Death overs average of 41.12 runs provides finishing opportunities"
         ]
     },
     "Dr DY Patil Sports Academy, Mumbai": {
@@ -1907,8 +1977,8 @@ VENUE_INSIGHTS = {
             "Moderate scoring venue with average of 164.32 runs per match",
             "Pace bowlers heavily dominate with 69.97% of wickets",
             "Lower boundary percentage of 17.05% requires smart shot selection",
-            "Powerplay scoring average of 86.35 runs",
-            "Death overs average of 84.95 runs provides moderate finishing opportunities"
+            "Powerplay scoring average of 43.18 runs",
+            "Death overs average of 47.48 runs provides moderate finishing opportunities"
         ]
     },
     "Barsapara Cricket Stadium, Guwahati": {
@@ -1916,8 +1986,8 @@ VENUE_INSIGHTS = {
             "Lower-scoring venue with average of 168.1 runs per match",
             "Balanced bowling conditions (Pace: 58.39%, Spin: 41.61%)",
             "Moderate boundary percentage of 18.07% requires patient approach",
-            "Powerplay scoring average of 100.4 runs",
-            "Death overs average of 86.6 runs demands strategic batting"
+            "Powerplay scoring average of 50.2 runs",
+            "Death overs average of 43.3 runs demands strategic batting"
         ]
     },
     "Maharaja Yadavindra Singh International Cricket Stadium, New Chandigarh": {
@@ -1925,8 +1995,8 @@ VENUE_INSIGHTS = {
             "Moderate scoring venue averaging 164.55 runs per match",
             "Pace bowlers dominate with 66.22% of wickets taken",
             "Moderate boundary percentage of 18.32% requires smart batting",
-            "Powerplay scoring average of 100.82 runs",
-            "Death overs average of 85.4 runs provides finishing opportunities"
+            "Powerplay scoring average of 50.41 runs",
+            "Death overs average of 43.2 runs provides finishing opportunities"
         ]
     }
 }
