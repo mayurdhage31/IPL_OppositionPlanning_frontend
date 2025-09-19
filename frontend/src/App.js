@@ -57,11 +57,32 @@ function App() {
     try {
       const response = await axios.get(`${API_BASE_URL}/teams/${teamName}/players`);
       setTeamPlayers(response.data.players);
-      setSelectedPlayers([]); // Clear selected players when opposition changes
+      
+      // Preselect players for specific teams
+      const preselectedPlayers = getPreselectedPlayers(teamName);
+      setSelectedPlayers(preselectedPlayers);
     } catch (error) {
       console.error('Error fetching team players:', error);
       setTeamPlayers([]);
+      setSelectedPlayers([]);
     }
+  };
+
+  const getPreselectedPlayers = (teamName) => {
+    const preselectedTeams = {
+      'Rajasthan Royals': [
+        'Jos Buttler', 'Yashasvi Jaiswal', 'Sanju Samson', 'Devdutt Padikkal', 
+        'Shimron Hetmyer', 'Riyan Parag', 'Ravichandran Ashwin', 'Trent Boult',
+        'Prasidh Krishna', 'Yuzvendra Chahal'
+      ],
+      'Royal Challengers Bangalore': [
+        'Virat Kohli', 'Faf du Plessis', 'Rajat Patidar', 'Glenn Maxwell', 
+        'AB de Villiers', 'Dinesh Karthik', 'Wanindu Hasaranga', 'Harshal Patel', 
+        'Mohammed Siraj', 'Josh Hazlewood'
+      ]
+    };
+    
+    return preselectedTeams[teamName] || [];
   };
 
   const handlePlayerSelection = (player) => {

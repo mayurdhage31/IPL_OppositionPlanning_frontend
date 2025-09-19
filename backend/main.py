@@ -26,7 +26,7 @@ TEAM_PLAYERS = {
     'Chennai Super Kings': [
         'Ruturaj Gaikwad', 'Devon Conway', 'Ravindra Jadeja', 
         'Mahendra Singh Dhoni', 'Shivam Dube', 'Moeen Ali', 'Deepak Chahar', 
-        'Dwayne Bravo', 'Tushar Deshpande'
+        'Dwayne Bravo', 'Tushar Deshpande' 
     ],
     'Mumbai Indians': [
         'Ishan Kishan', 'Rohit Sharma', 'Suryakumar Yadav', 'Tilak Varma', 'Tim David',
@@ -34,14 +34,14 @@ TEAM_PLAYERS = {
         'Rahul Chahar', 'Tymal Mills', 'Kieron Pollard'
     ],
     'Royal Challengers Bangalore': [
-        'Virat Kohli', 'Faf du Plessis', 'Glenn Maxwell', 'Dinesh Karthik',
-        'Rajat Patidar', 'AB de Villiers', 'Wanindu Hasaranga', 'Harshal Patel', 
+        'Virat Kohli', 'Faf du Plessis', 'Rajat Patidar', 'Glenn Maxwell', 
+         'AB de Villiers', 'Dinesh Karthik', 'Wanindu Hasaranga', 'Harshal Patel', 
         'Mohammed Siraj', 'Josh Hazlewood', 'Akash Deep'
     ],
     'Kolkata Knight Riders': [
         'Venkatesh Iyer', 'Shreyas Iyer', 'Nitish Rana',
         'Andre Russell', 'Rinku Singh', 'Phil Salt', 'Sunil Narine', 
-        'Pat Cummins', 'Varun Chakravarthy'
+        'Pat Cummins', 'Varun Chakravarthy' 
     ],
     'Delhi Capitals': [
         'David Warner', 'Prithvi Shaw', 'Rishabh Pant', 'Axar Patel',
@@ -54,17 +54,18 @@ TEAM_PLAYERS = {
         'Arshdeep Singh', 'Rahul Chahar'
     ],
     'Rajasthan Royals': [
-        'Jos Buttler', 'Yashasvi Jaiswal', 'Sanju Samson', 'Shimron Hetmyer',
-        'Riyan Parag', 'Devdutt Padikkal', 'Ravichandran Ashwin', 'Trent Boult',
+        'Jos Buttler', 'Yashasvi Jaiswal', 'Sanju Samson', 'Devdutt Padikkal', 
+        'Shimron Hetmyer',
+        'Riyan Parag',  'Ravichandran Ashwin', 'Trent Boult',
         'Prasidh Krishna', 'Yuzvendra Chahal', 'Obed McCoy'
     ],
     'Sunrisers Hyderabad': [
-        'Kane Williamson', 'Abhishek Sharma','Travis Head' 'Aiden Markram', 'Nicholas Pooran',
+        'Kane Williamson', 'Abhishek Sharma','Travis Head', 'Aiden Markram', 'Nicholas Pooran',
         'Abdul Samad',  'Washington Sundar', 'Bhuvneshwar Kumar', 
         'T Natarajan', 'Umran Malik', 'Marco Jansen'
     ],
     'Gujarat Titans': [
-        'David Miller', 'Sai Sudharsan',
+        'David Miller', 'Shubman Gill', 'Sai Sudharsan',
         'Rahul Tewatia', 'Wriddhiman Saha', 'Rashid Khan', 'Mohammed Shami', 
         'Lockie Ferguson', 'Alzarri Joseph', 'Yash Dayal'
     ],

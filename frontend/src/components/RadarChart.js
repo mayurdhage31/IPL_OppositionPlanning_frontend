@@ -83,17 +83,6 @@ const CustomRadarChart = ({ data, type }) => {
         </RadarChart>
       </ResponsiveContainer>
 
-      {/* Legend and Stats */}
-      <div className="mt-6 flex items-center justify-center space-x-8">
-        <div className="flex items-center">
-          <div className="w-4 h-4 bg-green-500 rounded mr-2"></div>
-          <span className="text-sm text-white">{type === 'player' ? data.player : data.team}</span>
-        </div>
-        <div className="flex items-center">
-          <div className="w-4 h-4 border-2 border-orange-400 rounded mr-2" style={{borderStyle: 'dashed'}}></div>
-          <span className="text-sm text-white">Overall Average</span>
-        </div>
-      </div>
       
     </div>
   );
