@@ -6,10 +6,6 @@ const VenueSlide = ({ venueName }) => {
   const [insights, setInsights] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchVenueData();
-  }, [fetchVenueData]);
-
   const fetchVenueData = useCallback(async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/venue/${venueName}/insights`);
@@ -20,6 +16,10 @@ const VenueSlide = ({ venueName }) => {
       setLoading(false);
     }
   }, [venueName]);
+
+  useEffect(() => {
+    fetchVenueData();
+  }, [fetchVenueData]);
 
   if (loading) {
     return (

@@ -16,16 +16,6 @@ function App() {
   const [showSlides, setShowSlides] = useState(false);
   const [apiStatus, setApiStatus] = useState('checking');
 
-  useEffect(() => {
-    fetchInitialData();
-  }, []);
-
-  useEffect(() => {
-    if (selectedOpposition) {
-      fetchTeamPlayers(selectedOpposition);
-    }
-  }, [selectedOpposition, fetchTeamPlayers]);
-
   const fetchInitialData = async () => {
     try {
       // Check API health first
@@ -98,6 +88,16 @@ function App() {
   const handleGenerateInsights = () => {
     setShowSlides(true);
   };
+
+  useEffect(() => {
+    fetchInitialData();
+  }, []);
+
+  useEffect(() => {
+    if (selectedOpposition) {
+      fetchTeamPlayers(selectedOpposition);
+    }
+  }, [selectedOpposition, fetchTeamPlayers]);
 
   if (loading) {
     return (

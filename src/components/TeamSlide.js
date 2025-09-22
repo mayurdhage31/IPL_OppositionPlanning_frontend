@@ -10,10 +10,6 @@ const TeamSlide = ({ teamName }) => {
   const [scatterData, setScatterData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchTeamData();
-  }, [fetchTeamData]);
-
   const fetchTeamData = useCallback(async () => {
     try {
       const timestamp = Date.now(); // Cache busting
@@ -32,6 +28,10 @@ const TeamSlide = ({ teamName }) => {
       setLoading(false);
     }
   }, [teamName]);
+
+  useEffect(() => {
+    fetchTeamData();
+  }, [fetchTeamData]);
 
   if (loading) {
     return (
