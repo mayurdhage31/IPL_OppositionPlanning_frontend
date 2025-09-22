@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ScatterPlot from './ScatterPlot';
 import RadarChart from './RadarChart';
@@ -12,9 +12,9 @@ const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
 
   useEffect(() => {
     fetchPlayerData();
-  }, [playerName, selectedPlayers]);
+  }, [fetchPlayerData]);
 
-  const fetchPlayerData = async () => {
+  const fetchPlayerData = useCallback(async () => {
     try {
       const timestamp = Date.now(); // Cache busting
       const selectedPlayersParam = selectedPlayers ? selectedPlayers.join(',') : '';
@@ -32,7 +32,7 @@ const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
       console.error('Error fetching player data:', error);
       setLoading(false);
     }
-  };
+  }, [playerName, selectedPlayers]);
 
   if (loading) {
     return (

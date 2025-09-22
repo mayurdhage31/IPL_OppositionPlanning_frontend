@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ScatterPlot from './ScatterPlot';
 import RadarChart from './RadarChart';
@@ -12,9 +12,9 @@ const TeamSlide = ({ teamName }) => {
 
   useEffect(() => {
     fetchTeamData();
-  }, [teamName]);
+  }, [fetchTeamData]);
 
-  const fetchTeamData = async () => {
+  const fetchTeamData = useCallback(async () => {
     try {
       const timestamp = Date.now(); // Cache busting
       const [insightsResponse, bowlingStatsResponse, scatterResponse] = await Promise.all([
@@ -31,7 +31,7 @@ const TeamSlide = ({ teamName }) => {
       console.error('Error fetching team data:', error);
       setLoading(false);
     }
-  };
+  }, [teamName]);
 
   if (loading) {
     return (

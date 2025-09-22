@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import SlideContainer from './components/SlideContainer';
 import Sidebar from './components/Sidebar';
@@ -24,7 +24,7 @@ function App() {
     if (selectedOpposition) {
       fetchTeamPlayers(selectedOpposition);
     }
-  }, [selectedOpposition]);
+  }, [selectedOpposition, fetchTeamPlayers]);
 
   const fetchInitialData = async () => {
     try {
@@ -53,7 +53,7 @@ function App() {
     }
   };
 
-  const fetchTeamPlayers = async (teamName) => {
+  const fetchTeamPlayers = useCallback(async (teamName) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/teams/${teamName}/players`);
       setTeamPlayers(response.data.players);
@@ -66,7 +66,7 @@ function App() {
       setTeamPlayers([]);
       setSelectedPlayers([]);
     }
-  };
+  }, []);
 
   const getPreselectedPlayers = (teamName) => {
     const preselectedTeams = {

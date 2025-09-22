@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../config/api';
 
@@ -8,9 +8,9 @@ const VenueSlide = ({ venueName }) => {
 
   useEffect(() => {
     fetchVenueData();
-  }, [venueName]);
+  }, [fetchVenueData]);
 
-  const fetchVenueData = async () => {
+  const fetchVenueData = useCallback(async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/venue/${venueName}/insights`);
       setInsights(response.data.insights);
@@ -19,7 +19,7 @@ const VenueSlide = ({ venueName }) => {
       console.error('Error fetching venue data:', error);
       setLoading(false);
     }
-  };
+  }, [venueName]);
 
   if (loading) {
     return (
