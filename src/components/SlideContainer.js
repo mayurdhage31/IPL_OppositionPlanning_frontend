@@ -75,35 +75,80 @@ const SlideContainer = ({
     const slideWidth = 210; // A4 width in mm
     const slideHeight = 297; // A4 height in mm
 
-    for (let i = 0; i < slides.length; i++) {
-      // Temporarily show the slide we want to capture
-      setCurrentSlide(i);
-      
-      // Wait a bit for the slide to render
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // Capture the slide
-      const canvas = await html2canvas(slideRef.current, {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#1a1f2e'
-      });
-      
-      const imgData = canvas.toDataURL('image/png');
-      
-      if (i > 0) {
-        pdf.addPage();
-      }
-      
-      // Calculate dimensions to fit the page
-      const imgWidth = slideWidth;
-      const imgHeight = (canvas.height * slideWidth) / canvas.width;
-      
-      pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, Math.min(imgHeight, slideHeight));
-    }
+    // Store the original slide to restore it later
+    const originalSlide = currentSlide;
+    
+    // Show loading overlay to hide the slide cycling from user
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.innerHTML = `
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+        <div style="background: #10b981; color: white; padding: 20px 40px; border-radius: 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+          <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">🔄 Generating PDF</div>
+          <div style="font-size: 14px; opacity: 0.9;">Please wait while we prepare your analysis...</div>
+          <div style="margin-top: 15px; width: 200px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden;">
+            <div id="progress-bar" style="height: 100%; background: white; width: 0%; transition: width 0.3s ease; border-radius: 2px;"></div>
+          </div>
+        </div>
+      </div>
+    `;
+    loadingOverlay.style.position = 'fixed';
+    loadingOverlay.style.top = '0';
+    loadingOverlay.style.left = '0';
+    loadingOverlay.style.width = '100vw';
+    loadingOverlay.style.height = '100vh';
+    loadingOverlay.style.backgroundColor = 'rgba(26, 31, 46, 0.95)';
+    loadingOverlay.style.zIndex = '9999';
+    loadingOverlay.style.backdropFilter = 'blur(5px)';
+    document.body.appendChild(loadingOverlay);
 
-    pdf.save('ipl-opposition-analysis.pdf');
+    try {
+      for (let i = 0; i < slides.length; i++) {
+        // Update progress bar
+        const progressBar = document.getElementById('progress-bar');
+        if (progressBar) {
+          progressBar.style.width = `${((i + 1) / slides.length) * 100}%`;
+        }
+
+        // Quickly switch to the slide (this happens behind the overlay)
+        setCurrentSlide(i);
+        
+        // Minimal wait time for slide to render
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Capture the slide
+        const canvas = await html2canvas(slideRef.current, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#1a1f2e'
+        });
+        
+        const imgData = canvas.toDataURL('image/png');
+        
+        if (i > 0) {
+          pdf.addPage();
+        }
+        
+        // Calculate dimensions to fit the page
+        const imgWidth = slideWidth;
+        const imgHeight = (canvas.height * slideWidth) / canvas.width;
+        
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, Math.min(imgHeight, slideHeight));
+      }
+
+      // Restore the original slide
+      setCurrentSlide(originalSlide);
+      
+      // Save the PDF
+      pdf.save('ipl-opposition-analysis.pdf');
+      
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Error generating PDF. Please try again.');
+    } finally {
+      // Remove loading overlay
+      document.body.removeChild(loadingOverlay);
+    }
   };
 
   if (totalSlides === 0) {
