@@ -9,6 +9,7 @@ function App() {
   const [venues, setVenues] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState('');
   const [selectedOpposition, setSelectedOpposition] = useState('');
+  const [selectedPlayer, setSelectedPlayer] = useState('');
   const [selectedVenue, setSelectedVenue] = useState('');
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [teamPlayers, setTeamPlayers] = useState([]);
