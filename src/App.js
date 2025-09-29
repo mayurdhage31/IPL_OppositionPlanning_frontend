@@ -121,33 +121,47 @@ function App() {
     );
   }
 
+  const handleTeamSelect = (team) => {
+    setSelectedOpposition(team);
+    setShowSlides(true);
+  };
+
+  const handlePlayerSelect = (player) => {
+    setSelectedPlayer(player);
+  };
+
+  const handleVenueSelect = (venue) => {
+    setSelectedVenue(venue);
+  };
+
   return (
-    <div className="min-h-screen" style={{backgroundColor: '#1a1f2e'}}>
-      <div className="flex">
-        <Sidebar
+    <div className="App">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        {/* Debug info - remove in production */}
+        <div className="fixed top-0 right-0 bg-red-600 text-white text-xs px-2 py-1 z-50">
+          v2.0-overbyover
+        </div>
+        <Sidebar 
           teams={teams}
           venues={venues}
-          selectedTeam={selectedTeam}
           selectedOpposition={selectedOpposition}
           selectedVenue={selectedVenue}
-          selectedPlayers={selectedPlayers}
           teamPlayers={teamPlayers}
-          onTeamChange={setSelectedTeam}
-          onOppositionChange={setSelectedOpposition}
-          onVenueChange={setSelectedVenue}
-          onPlayerSelection={handlePlayerSelection}
+          selectedPlayers={selectedPlayers}
+          onTeamSelect={handleTeamSelect}
+          onPlayerSelect={handlePlayerSelection}
+          onVenueSelect={handleVenueSelect}
           onGenerateInsights={handleGenerateInsights}
-          showSlides={showSlides}
         />
-
-        <main className="flex-1 p-6">
-          <SlideContainer
-            selectedPlayers={selectedPlayers}
-            selectedOpposition={selectedOpposition}
-            selectedVenue={selectedVenue}
-            showSlides={showSlides}
-          />
-        </main>
+        <div className="ml-80">
+          {showSlides && (
+            <SlideContainer 
+              selectedOpposition={selectedOpposition}
+              selectedPlayer={selectedPlayers[0]} // Use first selected player
+              selectedVenue={selectedVenue}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
