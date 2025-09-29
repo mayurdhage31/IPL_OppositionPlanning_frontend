@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Legend } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const ScatterPlot = ({ data, selectedPlayer, selectedTeam, type }) => {
   const [metric, setMetric] = useState('average'); // 'average' or 'strike_rate'

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { API_BASE_URL } from '../config/api';
 
 const OverByOverSlide = ({ teamName }) => {
@@ -38,7 +38,7 @@ const OverByOverSlide = ({ teamName }) => {
     if (teamName) {
       fetchAllData();
     }
-  }, [teamName]);
+  }, [teamName]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchAllData = async () => {
     try {
