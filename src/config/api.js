@@ -19,8 +19,8 @@ const getApiBaseUrl = () => {
     return 'http://localhost:8000';
   }
   
-  // Default to Railway deployment - UPDATE THIS URL when you get the new Railway URL
-  return 'https://your-backend-app.up.railway.app';
+  // Default to Railway deployment
+  return 'https://iploppositionplanningbackend-game-planner.up.railway.app';
 };
 
 export const API_BASE_URL = getApiBaseUrl();
