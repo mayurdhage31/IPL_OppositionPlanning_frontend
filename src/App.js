@@ -62,13 +62,42 @@ function App() {
 
   const handleOppositionChange = (team) => {
     setSelectedOpposition(team);
-    setSelectedPlayers([]);
     
     // Fetch players for the selected opposition team
     if (team) {
       fetchTeamPlayers(team);
+      
+      // Set preselected players for specific teams
+      if (team === 'Rajasthan Royals') {
+        setSelectedPlayers([
+          'Jos Buttler',
+          'Yashasvi Jaiswal',
+          'Sanju Samson',
+          'Shimron Hetmyer',
+          'Riyan Parag',
+          'Devdutt Padikkal',
+          'Ravichandran Ashwin',
+          'Trent Boult',
+          'Prasidh Krishna'
+        ]);
+      } else if (team === 'Royal Challengers Bangalore') {
+        setSelectedPlayers([
+          'Virat Kohli',
+          'Faf du Plessis',
+          'Glenn Maxwell',
+          'Dinesh Karthik',
+          'Rajat Patidar',
+          'AB de Villiers',
+          'Wanindu Hasaranga',
+          'Harshal Patel',
+          'Mohammed Siraj'
+        ]);
+      } else {
+        setSelectedPlayers([]);
+      }
     } else {
       setTeamPlayers([]);
+      setSelectedPlayers([]);
     }
   };
 
@@ -134,7 +163,7 @@ function App() {
           onPlayerSelection={handlePlayerSelection}
           onGenerateInsights={handleGenerateInsights}
         />
-        <div className="ml-80">
+        <div className="ml-80 p-6">
           {showSlides && (
             <SlideContainer 
               selectedPlayers={selectedPlayers}

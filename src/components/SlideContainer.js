@@ -4,7 +4,7 @@ import TeamSlide from './TeamSlide';
 import OverByOverSlide from './OverByOverSlide';
 import VenueSlide from './VenueSlide';
 import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import pptxgen from 'pptxgenjs';
 
 const SlideContainer = ({ 
   selectedPlayers, 
@@ -82,11 +82,7 @@ const SlideContainer = ({
     setCurrentSlide(index);
   };
 
-  const downloadPDF = async () => {
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const slideWidth = 210; // A4 width in mm
-    const slideHeight = 297; // A4 height in mm
-
+  const downloadPPTX = async () => {
     // Store the original slide to restore it later
     const originalSlide = currentSlide;
     
@@ -95,8 +91,8 @@ const SlideContainer = ({
     loadingOverlay.innerHTML = `
       <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
         <div style="background: #10b981; color: white; padding: 20px 40px; border-radius: 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-          <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">🔄 Generating PDF</div>
-          <div style="font-size: 14px; opacity: 0.9;">Please wait while we prepare your analysis...</div>
+          <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">🔄 Generating PPTX</div>
+          <div style="font-size: 14px; opacity: 0.9;">Please wait while we prepare your editable presentation...</div>
           <div style="margin-top: 15px; width: 200px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden;">
             <div id="progress-bar" style="height: 100%; background: white; width: 0%; transition: width 0.3s ease; border-radius: 2px;"></div>
           </div>
@@ -114,6 +110,15 @@ const SlideContainer = ({
     document.body.appendChild(loadingOverlay);
 
     try {
+      // Create new presentation
+      const pptx = new pptxgen();
+      
+      // Set presentation properties
+      pptx.author = 'IPL Opposition Planning Tool';
+      pptx.company = 'Cricket Analytics';
+      pptx.title = 'IPL Opposition Analysis';
+      pptx.subject = 'Cricket Team Analysis';
+
       for (let i = 0; i < slides.length; i++) {
         // Update progress bar
         const progressBar = document.getElementById('progress-bar');
@@ -124,8 +129,8 @@ const SlideContainer = ({
         // Quickly switch to the slide (this happens behind the overlay)
         setCurrentSlide(i);
         
-        // Minimal wait time for slide to render
-        await new Promise(resolve => setTimeout(resolve, 100));
+        // Wait for slide to render
+        await new Promise(resolve => setTimeout(resolve, 200));
         
         // Capture the slide
         const canvas = await html2canvas(slideRef.current, {
@@ -137,26 +142,51 @@ const SlideContainer = ({
         
         const imgData = canvas.toDataURL('image/png');
         
-        if (i > 0) {
-          pdf.addPage();
-        }
+        // Add slide to presentation
+        const slide = pptx.addSlide();
         
-        // Calculate dimensions to fit the page
-        const imgWidth = slideWidth;
-        const imgHeight = (canvas.height * slideWidth) / canvas.width;
+        // Add title
+        slide.addText(slides[i].title, {
+          x: 0.5,
+          y: 0.2,
+          w: 9,
+          h: 0.5,
+          fontSize: 24,
+          fontFace: 'Arial',
+          color: '10b981',
+          bold: true
+        });
         
-        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, Math.min(imgHeight, slideHeight));
+        // Add slide image
+        slide.addImage({
+          data: imgData,
+          x: 0.5,
+          y: 1,
+          w: 9,
+          h: 6
+        });
+        
+        // Add slide number
+        slide.addText(`Slide ${i + 1} of ${slides.length}`, {
+          x: 8.5,
+          y: 7.2,
+          w: 1,
+          h: 0.3,
+          fontSize: 10,
+          fontFace: 'Arial',
+          color: '666666'
+        });
       }
 
       // Restore the original slide
       setCurrentSlide(originalSlide);
       
-      // Save the PDF
-      pdf.save('ipl-opposition-analysis.pdf');
+      // Save the PPTX
+      await pptx.writeFile({ fileName: 'ipl-opposition-analysis.pptx' });
       
     } catch (error) {
-      console.error('Error generating PDF:', error);
-      alert('Error generating PDF. Please try again.');
+      console.error('Error generating PPTX:', error);
+      alert('Error generating PPTX. Please try again.');
     } finally {
       // Remove loading overlay
       document.body.removeChild(loadingOverlay);
@@ -229,15 +259,15 @@ const SlideContainer = ({
           </p>
         </div>
         
-        {/* Download PDF Button */}
+        {/* Download PPTX Button */}
         <button
-          onClick={downloadPDF}
+          onClick={downloadPPTX}
           className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          <span>Download PDF</span>
+          <span>Download PPTX</span>
         </button>
       </div>
 

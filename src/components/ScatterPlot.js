@@ -140,6 +140,12 @@ const ScatterPlot = ({ data, selectedPlayer, selectedTeam, type }) => {
             domain={axisConfig.xDomain}
             ticks={axisConfig.xTicks}
             name={metric === 'average' ? '1st Innings Average Score' : '1st Innings Strike Rate'}
+            label={{ 
+              value: metric === 'average' ? '1st Innings Average Score' : '1st Innings Strike Rate', 
+              position: 'insideBottom', 
+              offset: -10,
+              style: { textAnchor: 'middle', fill: '#9CA3AF', fontSize: '12px' }
+            }}
           />
           <YAxis 
             type="number" 
@@ -149,6 +155,12 @@ const ScatterPlot = ({ data, selectedPlayer, selectedTeam, type }) => {
             domain={axisConfig.yDomain}
             ticks={axisConfig.yTicks}
             name={metric === 'average' ? '2nd Innings Average Score' : '2nd Innings Strike Rate'}
+            label={{ 
+              value: metric === 'average' ? '2nd Innings Average Score' : '2nd Innings Strike Rate', 
+              angle: -90, 
+              position: 'insideLeft',
+              style: { textAnchor: 'middle', fill: '#9CA3AF', fontSize: '12px' }
+            }}
           />
           
           <Tooltip content={<CustomTooltip />} />
