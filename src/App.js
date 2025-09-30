@@ -1,44 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import SlideContainer from './components/SlideContainer';
 import Sidebar from './components/Sidebar';
-import { API_BASE_URL, checkApiHealth } from './config/api';
+import { API_BASE_URL } from './config/api';
 
 function App() {
   const [teams, setTeams] = useState([]);
   const [venues, setVenues] = useState([]);
-  const [selectedTeam, setSelectedTeam] = useState('');
-  const [selectedOpposition, setSelectedOpposition] = useState('');
-  const [selectedPlayer, setSelectedPlayer] = useState('');
-  const [selectedVenue, setSelectedVenue] = useState('');
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [selectedOpposition, setSelectedOpposition] = useState('');
+  const [selectedVenue, setSelectedVenue] = useState('');
   const [teamPlayers, setTeamPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showSlides, setShowSlides] = useState(false);
   const [apiStatus, setApiStatus] = useState('checking');
 
-  useEffect(() => {
-    fetchInitialData();
-  }, []);
-
-  useEffect(() => {
-    if (selectedOpposition) {
-      fetchTeamPlayers(selectedOpposition);
-    }
-  }, [selectedOpposition]);
-
-  const fetchInitialData = async () => {
+  const fetchInitialData = useCallback(async () => {
     try {
-      // Check API health first
-      const isApiHealthy = await checkApiHealth();
-      setApiStatus(isApiHealthy ? 'connected' : 'disconnected');
+      setLoading(true);
+      setApiStatus('checking');
       
-      if (!isApiHealthy) {
-        console.warn('API is not responding, using fallback data if available');
-        setLoading(false);
-        return;
-      }
-
       const [teamsResponse, venuesResponse] = await Promise.all([
         axios.get(`${API_BASE_URL}/teams`),
         axios.get(`${API_BASE_URL}/venues`)
@@ -46,47 +27,37 @@ function App() {
       
       setTeams(teamsResponse.data.teams);
       setVenues(venuesResponse.data.venues);
+      setApiStatus('connected');
       setLoading(false);
     } catch (error) {
       console.error('Error fetching initial data:', error);
       setApiStatus('error');
       setLoading(false);
     }
-  };
+  }, []);
 
-  const fetchTeamPlayers = async (teamName) => {
+  const fetchTeamPlayers = useCallback(async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/teams/${teamName}/players`);
+      const response = await axios.get(`${API_BASE_URL}/players`);
       setTeamPlayers(response.data.players);
-      
-      // Preselect players for specific teams
-      const preselectedPlayers = getPreselectedPlayers(teamName);
-      setSelectedPlayers(preselectedPlayers);
     } catch (error) {
-      console.error('Error fetching team players:', error);
-      setTeamPlayers([]);
-      setSelectedPlayers([]);
+      console.error('Error fetching players:', error);
     }
+  }, []);
+
+  useEffect(() => {
+    fetchInitialData();
+    fetchTeamPlayers();
+  }, [fetchInitialData, fetchTeamPlayers]);
+
+  const handleTeamSelect = (team) => {
+    setSelectedOpposition(team);
+    setShowSlides(true);
+    setTeamPlayers([]);
+    setSelectedPlayers([]);
   };
 
-  const getPreselectedPlayers = (teamName) => {
-    const preselectedTeams = {
-      'Rajasthan Royals': [
-        'Jos Buttler', 'Yashasvi Jaiswal', 'Sanju Samson', 'Devdutt Padikkal', 
-        'Shimron Hetmyer', 'Riyan Parag', 'Ravichandran Ashwin', 'Trent Boult',
-        'Prasidh Krishna', 'Yuzvendra Chahal'
-      ],
-      'Royal Challengers Bangalore': [
-        'Virat Kohli', 'Faf du Plessis', 'Rajat Patidar', 'Glenn Maxwell', 
-        'AB de Villiers', 'Dinesh Karthik', 'Wanindu Hasaranga', 'Harshal Patel', 
-        'Mohammed Siraj', 'Josh Hazlewood'
-      ]
-    };
-    
-    return preselectedTeams[teamName] || [];
-  };
-
-  const handlePlayerSelection = (player) => {
+  const handlePlayerSelect = (player) => {
     setSelectedPlayers(prev => {
       if (prev.includes(player)) {
         return prev.filter(p => p !== player);
@@ -94,6 +65,10 @@ function App() {
         return [...prev, player];
       }
     });
+  };
+
+  const handleVenueSelect = (venue) => {
+    setSelectedVenue(venue);
   };
 
   const handleGenerateInsights = () => {
@@ -122,18 +97,6 @@ function App() {
     );
   }
 
-  const handleTeamSelect = (team) => {
-    setSelectedOpposition(team);
-    setShowSlides(true);
-  };
-
-  const handlePlayerSelect = (player) => {
-    setSelectedPlayer(player);
-  };
-
-  const handleVenueSelect = (venue) => {
-    setSelectedVenue(venue);
-  };
 
   return (
     <div className="App">
@@ -150,16 +113,17 @@ function App() {
           teamPlayers={teamPlayers}
           selectedPlayers={selectedPlayers}
           onTeamSelect={handleTeamSelect}
-          onPlayerSelect={handlePlayerSelection}
+          onPlayerSelect={handlePlayerSelect}
           onVenueSelect={handleVenueSelect}
           onGenerateInsights={handleGenerateInsights}
         />
         <div className="ml-80">
           {showSlides && (
             <SlideContainer 
+              selectedPlayers={selectedPlayers}
               selectedOpposition={selectedOpposition}
-              selectedPlayer={selectedPlayers[0]} // Use first selected player
               selectedVenue={selectedVenue}
+              showSlides={showSlides}
             />
           )}
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { API_BASE_URL } from '../config/api';
@@ -34,13 +34,7 @@ const OverByOverSlide = ({ teamName }) => {
     '#fcd34d'  // amber-300
   ];
 
-  useEffect(() => {
-    if (teamName) {
-      fetchAllData();
-    }
-  }, [teamName]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const fetchAllData = async () => {
+  const fetchAllData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -60,7 +54,7 @@ const OverByOverSlide = ({ teamName }) => {
         };
         
         // Add each bowler's contribution to this over
-        overInfo.bowlers.forEach((bowler, index) => {
+        overInfo.bowlers.forEach((bowler) => {
           overData[bowler.name] = bowler.overs;
           overData.total += bowler.overs;
         });
@@ -84,7 +78,14 @@ const OverByOverSlide = ({ teamName }) => {
       setError(error.response?.data?.detail || 'Failed to load over-by-over data');
       setLoading(false);
     }
-  };
+  }, [teamName]);
+
+  useEffect(() => {
+    if (teamName) {
+      fetchAllData();
+    }
+  }, [teamName, fetchAllData]);
+
 
   // Get all unique bowler names across all overs
   const getAllBowlers = () => {
