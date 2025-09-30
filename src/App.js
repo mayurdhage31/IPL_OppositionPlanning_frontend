@@ -8,6 +8,7 @@ function App() {
   const [teams, setTeams] = useState([]);
   const [venues, setVenues] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [selectedTeam, setSelectedTeam] = useState('');
   const [selectedOpposition, setSelectedOpposition] = useState('');
   const [selectedVenue, setSelectedVenue] = useState('');
   const [teamPlayers, setTeamPlayers] = useState([]);
@@ -50,14 +51,22 @@ function App() {
     fetchTeamPlayers();
   }, [fetchInitialData, fetchTeamPlayers]);
 
-  const handleTeamSelect = (team) => {
+  const handleTeamChange = (team) => {
+    setSelectedTeam(team);
+  };
+
+  const handleOppositionChange = (team) => {
     setSelectedOpposition(team);
     setShowSlides(true);
     setTeamPlayers([]);
     setSelectedPlayers([]);
   };
 
-  const handlePlayerSelect = (player) => {
+  const handleVenueChange = (venue) => {
+    setSelectedVenue(venue);
+  };
+
+  const handlePlayerSelection = (player) => {
     setSelectedPlayers(prev => {
       if (prev.includes(player)) {
         return prev.filter(p => p !== player);
@@ -65,10 +74,6 @@ function App() {
         return [...prev, player];
       }
     });
-  };
-
-  const handleVenueSelect = (venue) => {
-    setSelectedVenue(venue);
   };
 
   const handleGenerateInsights = () => {
@@ -108,13 +113,15 @@ function App() {
         <Sidebar 
           teams={teams}
           venues={venues}
+          selectedTeam={selectedTeam}
           selectedOpposition={selectedOpposition}
           selectedVenue={selectedVenue}
           teamPlayers={teamPlayers}
           selectedPlayers={selectedPlayers}
-          onTeamSelect={handleTeamSelect}
-          onPlayerSelect={handlePlayerSelect}
-          onVenueSelect={handleVenueSelect}
+          onTeamChange={handleTeamChange}
+          onOppositionChange={handleOppositionChange}
+          onVenueChange={handleVenueChange}
+          onPlayerSelection={handlePlayerSelection}
           onGenerateInsights={handleGenerateInsights}
         />
         <div className="ml-80">
