@@ -37,19 +37,24 @@ function App() {
     }
   }, []);
 
-  const fetchTeamPlayers = useCallback(async () => {
+  const fetchTeamPlayers = useCallback(async (teamName) => {
+    if (!teamName) {
+      setTeamPlayers([]);
+      return;
+    }
+    
     try {
-      const response = await axios.get(`${API_BASE_URL}/players`);
+      const response = await axios.get(`${API_BASE_URL}/teams/${encodeURIComponent(teamName)}/players`);
       setTeamPlayers(response.data.players);
     } catch (error) {
       console.error('Error fetching players:', error);
+      setTeamPlayers([]);
     }
   }, []);
 
   useEffect(() => {
     fetchInitialData();
-    fetchTeamPlayers();
-  }, [fetchInitialData, fetchTeamPlayers]);
+  }, [fetchInitialData]);
 
   const handleTeamChange = (team) => {
     setSelectedTeam(team);
@@ -57,9 +62,14 @@ function App() {
 
   const handleOppositionChange = (team) => {
     setSelectedOpposition(team);
-    setShowSlides(true);
-    setTeamPlayers([]);
     setSelectedPlayers([]);
+    
+    // Fetch players for the selected opposition team
+    if (team) {
+      fetchTeamPlayers(team);
+    } else {
+      setTeamPlayers([]);
+    }
   };
 
   const handleVenueChange = (venue) => {
