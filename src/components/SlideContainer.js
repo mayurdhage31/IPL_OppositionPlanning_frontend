@@ -17,7 +17,7 @@ const SlideContainer = ({
 
   if (!showSlides) {
     return (
-      <div className="text-center mt-20" style={{color: '#10b981'}}>
+      <div className="text-center mt-20 p-6" style={{color: '#10b981'}}>
         <h2 className="text-2xl mb-4">Welcome to Opposition Planning AI</h2>
         <p className="text-lg">Select teams, players, and venue from the sidebar, then click "Generate Insights" to view analysis</p>
       </div>
@@ -195,7 +195,7 @@ const SlideContainer = ({
 
   if (totalSlides === 0) {
     return (
-      <div className="text-center mt-20" style={{color: '#10b981'}}>
+      <div className="text-center mt-20 p-6" style={{color: '#10b981'}}>
         <h2 className="text-2xl mb-4">No Data Selected</h2>
         <p className="text-lg">Please select players, opposition team, or venue to generate insights</p>
       </div>
@@ -205,7 +205,7 @@ const SlideContainer = ({
   const currentSlideData = slides[currentSlide];
 
   return (
-    <div className="w-full">
+    <div className="w-full p-6">
       {/* Navigation Controls - Moved to Top */}
       <div className="flex justify-between items-center mb-6">
         {/* Previous Button */}

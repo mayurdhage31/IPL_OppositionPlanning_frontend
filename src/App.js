@@ -163,7 +163,7 @@ function App() {
           onPlayerSelection={handlePlayerSelection}
           onGenerateInsights={handleGenerateInsights}
         />
-        <div className="ml-80 p-6">
+        <div className="ml-80">
           {showSlides && (
             <SlideContainer 
               selectedPlayers={selectedPlayers}
