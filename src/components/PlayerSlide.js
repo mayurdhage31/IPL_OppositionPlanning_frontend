@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ScatterPlot from './ScatterPlot';
 import RadarChart from './RadarChart';
+import AnalystComments from './AnalystComments';
 import { API_BASE_URL } from '../config/api';
 
 const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
@@ -44,9 +45,6 @@ const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
 
   return (
     <div className="slide-container">
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold teal-accent mb-2">{playerName} - Opposition Analysis</h2>
-      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* AI Insights */}
@@ -107,6 +105,9 @@ const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
           type="player"
         />
       </div>
+
+      {/* Analyst Comments Section */}
+      <AnalystComments slideId={`player_${playerName}`} />
     </div>
   );
 };

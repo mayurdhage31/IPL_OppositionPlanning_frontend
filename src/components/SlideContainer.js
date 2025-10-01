@@ -110,8 +110,11 @@ const SlideContainer = ({
     document.body.appendChild(loadingOverlay);
 
     try {
-      // Create new presentation
+      // Create new presentation with landscape orientation
       const pptx = new pptxgen();
+      
+      // Set slide size to landscape (16:9 aspect ratio)
+      pptx.layout = 'LAYOUT_WIDE';
       
       // Set presentation properties
       pptx.author = 'IPL Opposition Planning Tool';
@@ -142,14 +145,14 @@ const SlideContainer = ({
         
         const imgData = canvas.toDataURL('image/png');
         
-        // Add slide to presentation
+        // Add slide to presentation (landscape mode)
         const slide = pptx.addSlide();
         
-        // Add title
+        // Add title (adjusted for landscape layout)
         slide.addText(slides[i].title, {
           x: 0.5,
           y: 0.2,
-          w: 9,
+          w: 12,
           h: 0.5,
           fontSize: 24,
           fontFace: 'Arial',
@@ -157,19 +160,55 @@ const SlideContainer = ({
           bold: true
         });
         
-        // Add slide image
+        // Add slide image (adjusted for landscape layout)
         slide.addImage({
           data: imgData,
           x: 0.5,
           y: 1,
-          w: 9,
-          h: 6
+          w: 12,
+          h: 5.5
         });
         
-        // Add slide number
+        // Add analyst comments from localStorage if they exist
+        let slideId;
+        if (slides[i].type === 'player') {
+          slideId = `player_${slides[i].data}`;
+        } else if (slides[i].type === 'team') {
+          slideId = `team_${slides[i].data}`;
+        } else if (slides[i].type === 'overbyover') {
+          slideId = `overbyover_${slides[i].data}`;
+        } else if (slides[i].type === 'venue') {
+          slideId = `venue_${slides[i].data}`;
+        }
+        
+        const comments = localStorage.getItem(`analyst_comments_${slideId}`);
+        if (comments && comments.trim()) {
+          slide.addText('Analyst Comments:', {
+            x: 0.5,
+            y: 6.8,
+            w: 12,
+            h: 0.3,
+            fontSize: 14,
+            fontFace: 'Arial',
+            color: '10b981',
+            bold: true
+          });
+          
+          slide.addText(comments, {
+            x: 0.5,
+            y: 7.1,
+            w: 12,
+            h: 0.6,
+            fontSize: 12,
+            fontFace: 'Arial',
+            color: '000000'
+          });
+        }
+        
+        // Add slide number (adjusted for landscape layout)
         slide.addText(`Slide ${i + 1} of ${slides.length}`, {
-          x: 8.5,
-          y: 7.2,
+          x: 11.5,
+          y: 6.7,
           w: 1,
           h: 0.3,
           fontSize: 10,
@@ -206,60 +245,57 @@ const SlideContainer = ({
 
   return (
     <div className="w-full p-6">
-      {/* Navigation Controls - Moved to Top */}
+      {/* Top Header with Navigation Controls */}
       <div className="flex justify-between items-center mb-6">
-        {/* Previous Button */}
-        <button
-          onClick={prevSlide}
-          disabled={totalSlides <= 1}
-          className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          <span>Previous</span>
-        </button>
-
-        {/* Slide Indicators */}
-        <div className="flex space-x-2">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                index === currentSlide 
-                  ? 'bg-teal-500' 
-                  : 'bg-gray-600 hover:bg-gray-500'
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Next Button */}
-        <button
-          onClick={nextSlide}
-          disabled={totalSlides <= 1}
-          className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors"
-        >
-          <span>Next</span>
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
-
-      {/* Slide Header */}
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h2 className="text-2xl font-bold text-white mb-2">
-            {currentSlideData.title}
-          </h2>
-          <p className="text-gray-400">
+        {/* Left side - empty for spacing */}
+        <div></div>
+        
+        {/* Center - Slide Title and Counter */}
+        <div className="text-center">
+          <p className="text-gray-400 text-sm mb-1">
             Slide {currentSlide + 1} of {totalSlides}
           </p>
         </div>
         
-        {/* Download PPTX Button */}
+        {/* Right side - Navigation Controls */}
+        <div className="flex items-center space-x-4">
+          {/* Previous Button */}
+          <button
+            onClick={prevSlide}
+            disabled={totalSlides <= 1}
+            className="flex items-center space-x-2 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors"
+          >
+            <span>Previous</span>
+          </button>
+
+          {/* Next Button */}
+          <button
+            onClick={nextSlide}
+            disabled={totalSlides <= 1}
+            className="flex items-center space-x-2 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors"
+          >
+            <span>Next</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Slide Indicators - Centered */}
+      <div className="flex justify-center space-x-2 mb-6">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              index === currentSlide 
+                ? 'bg-teal-500' 
+                : 'bg-gray-600 hover:bg-gray-500'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Download PPTX Button - Top Right */}
+      <div className="flex justify-end mb-4">
         <button
           onClick={downloadPPTX}
           className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
@@ -273,6 +309,11 @@ const SlideContainer = ({
 
       {/* Slide Content */}
       <div ref={slideRef} className="slide-content bg-gray-800 rounded-lg p-6 min-h-[600px]">
+        {/* Slide Title */}
+        <h2 className="text-2xl font-bold text-white mb-6">
+          {currentSlideData.title}
+        </h2>
+        
         {currentSlideData.type === 'player' && (
           <PlayerSlide 
             playerName={currentSlideData.data} 

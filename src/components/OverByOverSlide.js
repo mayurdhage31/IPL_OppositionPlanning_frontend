@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import AnalystComments from './AnalystComments';
 import { API_BASE_URL } from '../config/api';
 
 const OverByOverSlide = ({ teamName }) => {
@@ -53,22 +54,35 @@ const OverByOverSlide = ({ teamName }) => {
           total: 0
         };
         
-        // Add each bowler's contribution to this over
+        // Calculate total overs for this over
+        const totalOvers = overInfo.bowlers.reduce((sum, bowler) => sum + bowler.overs, 0);
+        
+        // Add each bowler's contribution to this over as percentage
         overInfo.bowlers.forEach((bowler) => {
-          overData[bowler.name] = bowler.overs;
-          overData.total += bowler.overs;
+          // Calculate percentage (0-100)
+          const percentage = totalOvers > 0 ? (bowler.overs / totalOvers) * 100 : 0;
+          overData[bowler.name] = percentage;
+          overData.total += percentage;
+          // Store raw overs for tooltip display
+          overData[`${bowler.name}_raw`] = bowler.overs;
         });
         
         return overData;
       });
       
       // Transform pacer-spinner data
-      const transformedPacerSpinnerData = pacerSpinnerResponse.data.overs_data.map(overInfo => ({
-        over: overInfo.over,
-        Pacer: overInfo.pacer_overs,
-        Spinner: overInfo.spinner_overs,
-        total: overInfo.total_overs
-      }));
+      const transformedPacerSpinnerData = pacerSpinnerResponse.data.overs_data.map(overInfo => {
+        const totalOvers = overInfo.total_overs;
+        return {
+          over: overInfo.over,
+          Pacer: totalOvers > 0 ? (overInfo.pacer_overs / totalOvers) * 100 : 0,
+          Spinner: totalOvers > 0 ? (overInfo.spinner_overs / totalOvers) * 100 : 0,
+          total: totalOvers,
+          // Store raw values for tooltip display
+          Pacer_raw: overInfo.pacer_overs,
+          Spinner_raw: overInfo.spinner_overs
+        };
+      });
       
       setOverData(transformedOverData);
       setPacerSpinnerData(transformedPacerSpinnerData);
@@ -108,11 +122,18 @@ const OverByOverSlide = ({ teamName }) => {
       return (
         <div className="bg-gray-800 border border-gray-600 rounded-lg p-3 shadow-lg">
           <p className="text-white font-semibold mb-2">{`Over ${label}`}</p>
-          {activeBowlers.map((entry, index) => (
-            <p key={index} className="text-sm" style={{ color: entry.color }}>
-              {`${entry.dataKey}: ${entry.value} over${entry.value > 1 ? 's' : ''}`}
-            </p>
-          ))}
+          {activeBowlers.map((entry, index) => {
+            const bowlerName = entry.dataKey;
+            const percentage = entry.value.toFixed(1);
+            // Get raw overs value from the data
+            const rawOvers = payload[0].payload[`${bowlerName}_raw`] || 0;
+            
+            return (
+              <p key={index} className="text-sm" style={{ color: entry.color }}>
+                {`${bowlerName}: ${percentage}% (${rawOvers} over${rawOvers > 1 ? 's' : ''})`}
+              </p>
+            );
+          })}
         </div>
       );
     }
@@ -148,18 +169,25 @@ const OverByOverSlide = ({ teamName }) => {
   // Custom tooltip for pacer/spinner view
   const PacerSpinnerTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
-      const totalOvers = payload.reduce((sum, entry) => sum + entry.value, 0);
+      const totalPercentage = payload.reduce((sum, entry) => sum + entry.value, 0);
       
       return (
         <div className="bg-gray-800 border border-gray-600 rounded-lg p-3 shadow-lg">
           <p className="text-white font-semibold mb-2">{`Over ${label}`}</p>
-          {payload.map((entry, index) => (
-            <p key={index} className="text-sm" style={{ color: entry.color }}>
-              {`${entry.dataKey}: ${entry.value} over${entry.value > 1 ? 's' : ''}`}
-            </p>
-          ))}
+          {payload.map((entry, index) => {
+            const bowlerType = entry.dataKey;
+            const percentage = entry.value.toFixed(1);
+            // Get raw overs value from the data
+            const rawOvers = payload[0].payload[`${bowlerType}_raw`] || 0;
+            
+            return (
+              <p key={index} className="text-sm" style={{ color: entry.color }}>
+                {`${bowlerType}: ${percentage}% (${rawOvers} over${rawOvers > 1 ? 's' : ''})`}
+              </p>
+            );
+          })}
           <p className="text-sm text-gray-300 border-t border-gray-600 pt-1 mt-1">
-            {`Total: ${totalOvers} over${totalOvers > 1 ? 's' : ''}`}
+            {`Total: ${payload[0].payload.total} over${payload[0].payload.total > 1 ? 's' : ''}`}
           </p>
         </div>
       );
@@ -170,12 +198,10 @@ const OverByOverSlide = ({ teamName }) => {
   return (
     <div className="slide-container">
       <div className="mb-6">
-        <h2 className="text-3xl font-bold teal-accent mb-2">{teamName} - Over-by-Over Bowling Analysis</h2>
         <p className="text-gray-300 text-sm">
           {showPacerSpinner 
             ? 'Pacer vs Spinner breakdown across overs' 
-            : 'Individual bowler distribution across overs'
-          }
+            : 'Individual bowler breakdown across overs'}
         </p>
       </div>
 
@@ -183,7 +209,7 @@ const OverByOverSlide = ({ teamName }) => {
         <div className="insight-card">
           {/* Toggle Button */}
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xl font-semibold text-white">
+            <h3 className="text-xl font-semibold teal-accent">
               {showPacerSpinner ? 'Pacer vs Spinner Breakdown' : 'Bowling Distribution Across Overs'}
             </h3>
             <button
@@ -213,7 +239,9 @@ const OverByOverSlide = ({ teamName }) => {
                 <YAxis 
                   stroke="#9ca3af"
                   fontSize={12}
-                  label={{ value: 'Number of Overs', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fill: '#9ca3af' } }}
+                  domain={[0, 100]}
+                  tickFormatter={(value) => `${value}%`}
+                  label={{ value: 'Percentage of Overs', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle', fill: '#9ca3af' } }}
                 />
                 <Tooltip content={showPacerSpinner ? <PacerSpinnerTooltip /> : <CustomTooltip />} />
                 
@@ -292,6 +320,9 @@ const OverByOverSlide = ({ teamName }) => {
           <p className="text-gray-500">No over-by-over bowling data found for {teamName}</p>
         </div>
       )}
+
+      {/* Analyst Comments Section */}
+      <AnalystComments slideId={`overbyover_${teamName}`} />
     </div>
   );
 };
