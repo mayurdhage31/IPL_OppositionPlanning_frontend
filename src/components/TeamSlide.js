@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ScatterPlot from './ScatterPlot';
-import RadarChart from './RadarChart';
+import BowlerTypeTable from './BowlerTypeTable';
+import AnalystComments from './AnalystComments';
 import { API_BASE_URL } from '../config/api';
 
 const TeamSlide = ({ teamName }) => {
@@ -43,9 +44,6 @@ const TeamSlide = ({ teamName }) => {
 
   return (
     <div className="slide-container">
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold teal-accent mb-2">{teamName} - Team Analysis</h2>
-      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* AI Insights */}
@@ -98,14 +96,17 @@ const TeamSlide = ({ teamName }) => {
         </div>
       </div>
 
-      {/* Radar Chart - Full Width */}
+      {/* Bowling Stats Table - Full Width */}
       <div className="insight-card mt-6">
-        <h3 className="text-xl font-semibold text-white mb-4">Strike Rate vs Bowling Types</h3>
-        <RadarChart 
+        <h3 className="text-xl font-semibold text-white mb-4">Performance vs Bowling Types</h3>
+        <BowlerTypeTable 
           data={bowlingStats}
           type="team"
         />
       </div>
+
+      {/* Analyst Comments Section */}
+      <AnalystComments slideId={`team_${teamName}`} />
     </div>
   );
 };

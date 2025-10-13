@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import AnalystComments from './AnalystComments';
 import { API_BASE_URL } from '../config/api';
 
 const VenueSlide = ({ venueName }) => {
@@ -31,10 +32,6 @@ const VenueSlide = ({ venueName }) => {
 
   return (
     <div className="slide-container">
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold text-teal-400 mb-2">{venueName}</h2>
-        <p className="text-lg text-gray-300">Venue Analysis</p>
-      </div>
 
       <div className="grid grid-cols-1 gap-6">
         {/* Venue Insights */}
@@ -103,6 +100,9 @@ const VenueSlide = ({ venueName }) => {
             </div>
           </div>
         </div>
+
+        {/* Analyst Comments Section */}
+        <AnalystComments slideId={`venue_${venueName}`} />
       </div>
     </div>
   );

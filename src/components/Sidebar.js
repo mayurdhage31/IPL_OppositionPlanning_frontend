@@ -16,7 +16,7 @@ const Sidebar = ({
   showSlides
 }) => {
   return (
-    <div className="w-80 sidebar p-6 min-h-screen">
+    <div className="w-80 sidebar p-6 h-screen fixed left-0 top-0 overflow-y-auto">
       <div className="mb-6">
         <h2 className="text-xl font-bold text-white mb-6">Team Selection</h2>
         
