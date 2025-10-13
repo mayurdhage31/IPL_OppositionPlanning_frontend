@@ -133,7 +133,7 @@ const SlideContainer = ({
         // Add slide to presentation
         const slide = pptx.addSlide();
         
-        // Add title
+        // Add title (adjusted for landscape layout)
         slide.addText(slides[i].title, {
           x: 0.5,
           y: 0.3,
@@ -335,18 +335,18 @@ const SlideContainer = ({
         }
         
         // Add analyst comments section
-        let slideId;
+        let slideId1;
         if (slides[i].type === 'player') {
-          slideId = `player_${slides[i].data}`;
+          slideId1 = `player_${slides[i].data}`;
         } else if (slides[i].type === 'team') {
-          slideId = `team_${slides[i].data}`;
+          slideId1 = `team_${slides[i].data}`;
         } else if (slides[i].type === 'overbyover') {
-          slideId = `overbyover_${slides[i].data}`;
+          slideId1 = `overbyover_${slides[i].data}`;
         } else if (slides[i].type === 'venue') {
-          slideId = `venue_${slides[i].data}`;
+          slideId1 = `venue_${slides[i].data}`;
         }
         
-        const comments = localStorage.getItem(`analyst_comments_${slideId}`);
+        const comments1 = localStorage.getItem(`analyst_comments_${slideId1}`);
         
         // Always add analyst comments section (even if empty)
         slide.addText('Analyst Comments:', {
@@ -360,8 +360,8 @@ const SlideContainer = ({
           bold: true
         });
         
-        const commentsText = comments && comments.trim() 
-          ? comments 
+        const commentsText = comments1 && comments1.trim() 
+          ? comments1 
           : 'Add your strategic insights and recommendations here...';
         
         slide.addText(commentsText, {
@@ -371,11 +371,11 @@ const SlideContainer = ({
           h: 1.5,
           fontSize: 12,
           fontFace: 'Arial',
-          color: comments && comments.trim() ? '000000' : '999999',
-          italic: !comments || !comments.trim()
+          color: comments1 && comments1.trim() ? '000000' : '999999',
+          italic: !comments1 || !comments1.trim()
         });
         
-        // Add slide number
+        // Add slide number (adjusted for landscape layout)
         slide.addText(`Slide ${i + 1} of ${slides.length}`, {
           x: 11.5,
           y: 7.2,

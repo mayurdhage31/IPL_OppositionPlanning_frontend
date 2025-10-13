@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ScatterPlot from './ScatterPlot';
 import BowlerTypeTable from './BowlerTypeTable';
+import RadarChart from './RadarChart';
 import AnalystComments from './AnalystComments';
 import { API_BASE_URL } from '../config/api';
 
