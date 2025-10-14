@@ -31,49 +31,47 @@ const BowlerTypeTable = ({ data, type }) => {
       };
     });
 
-  // Function to determine text color for strike rate
-  const getStrikeRateColor = (strikeRate) => {
-    if (strikeRate >= 140) {
-      return 'text-green-400'; // Green for 140 and above
-    } else if (strikeRate >= 125) {
-      return 'text-yellow-400'; // Yellow for 125 to 139
+  // Dynamic color coding function - highest 2 = green, lowest 2 = red, rest = yellow
+  const getDynamicColor = (value, values, isLowerBetter = false) => {
+    // Sort values to find thresholds
+    const sortedValues = [...values].sort((a, b) => a - b);
+    const uniqueSorted = [...new Set(sortedValues)];
+    
+    if (uniqueSorted.length <= 2) {
+      // If 2 or fewer unique values, use simple logic
+      if (isLowerBetter) {
+        return value <= uniqueSorted[0] ? 'text-green-400' : 'text-red-400';
+      } else {
+        return value >= uniqueSorted[uniqueSorted.length - 1] ? 'text-green-400' : 'text-red-400';
+      }
+    }
+    
+    if (isLowerBetter) {
+      // For dot ball % - lower is better
+      if (value <= uniqueSorted[1]) {
+        return 'text-green-400'; // Lowest 2 values = green
+      } else if (value >= uniqueSorted[uniqueSorted.length - 2]) {
+        return 'text-red-400'; // Highest 2 values = red
+      } else {
+        return 'text-yellow-400'; // Rest = yellow
+      }
     } else {
-      return 'text-red-400'; // Red for below 125
+      // For strike rate, average, boundary % - higher is better
+      if (value >= uniqueSorted[uniqueSorted.length - 2]) {
+        return 'text-green-400'; // Highest 2 values = green
+      } else if (value <= uniqueSorted[1]) {
+        return 'text-red-400'; // Lowest 2 values = red
+      } else {
+        return 'text-yellow-400'; // Rest = yellow
+      }
     }
   };
 
-  // Function to determine text color for average
-  const getAverageColor = (average) => {
-    if (average >= 35) {
-      return 'text-green-400'; // Green for 35 and above
-    } else if (average >= 21) {
-      return 'text-yellow-400'; // Yellow for 21 to 34
-    } else {
-      return 'text-red-400'; // Red for below 20
-    }
-  };
-
-  // Function to determine text color for boundary percentage
-  const getBoundaryPctColor = (boundaryPct) => {
-    if (boundaryPct > 25) {
-      return 'text-green-400'; // Green for more than 25
-    } else if (boundaryPct >= 15) {
-      return 'text-yellow-400'; // Yellow for 15 to 24
-    } else {
-      return 'text-red-400'; // Red for rest
-    }
-  };
-
-  // Function to determine text color for dot ball percentage (lower is better for batters)
-  const getDotPctColor = (dotPct) => {
-    if (dotPct > 30) {
-      return 'text-red-400'; // Red for above 30 (bad for batters)
-    } else if (dotPct >= 20) {
-      return 'text-yellow-400'; // Yellow for 20 to 29
-    } else {
-      return 'text-green-400'; // Green for rest (good for batters)
-    }
-  };
+  // Extract all values for dynamic coloring
+  const strikeRateValues = tableData.map(row => row.strikeRate);
+  const averageValues = tableData.map(row => row.average);
+  const boundaryPctValues = tableData.map(row => row.boundaryPct);
+  const dotPctValues = tableData.map(row => row.dotPct);
 
   return (
     <div className="w-full">
@@ -83,9 +81,6 @@ const BowlerTypeTable = ({ data, type }) => {
             <tr className="bg-gray-700">
               <th className="border border-gray-600 px-4 py-3 text-left text-white font-semibold">
                 Bowler Type
-              </th>
-              <th className="border border-gray-600 px-4 py-3 text-center text-white font-semibold">
-                Runs
               </th>
               <th className="border border-gray-600 px-4 py-3 text-center text-white font-semibold">
                 Balls Faced
@@ -111,28 +106,25 @@ const BowlerTypeTable = ({ data, type }) => {
                   {row.bowlingType}
                 </td>
                 <td className="border border-gray-600 px-4 py-3 text-center text-white font-semibold">
-                  {row.runs}
-                </td>
-                <td className="border border-gray-600 px-4 py-3 text-center text-white font-semibold">
                   {row.balls}
                 </td>
                 <td className="border border-gray-600 px-4 py-3 text-center">
-                  <span className={`font-semibold ${getStrikeRateColor(row.strikeRate)}`}>
+                  <span className={`font-semibold ${getDynamicColor(row.strikeRate, strikeRateValues)}`}>
                     {row.strikeRate.toFixed(1)}
                   </span>
                 </td>
                 <td className="border border-gray-600 px-4 py-3 text-center">
-                  <span className={`font-semibold ${getAverageColor(row.average)}`}>
+                  <span className={`font-semibold ${getDynamicColor(row.average, averageValues)}`}>
                     {row.average.toFixed(1)}
                   </span>
                 </td>
                 <td className="border border-gray-600 px-4 py-3 text-center">
-                  <span className={`font-semibold ${getDotPctColor(row.dotPct)}`}>
+                  <span className={`font-semibold ${getDynamicColor(row.dotPct, dotPctValues, true)}`}>
                     {row.dotPct.toFixed(1)}%
                   </span>
                 </td>
                 <td className="border border-gray-600 px-4 py-3 text-center">
-                  <span className={`font-semibold ${getBoundaryPctColor(row.boundaryPct)}`}>
+                  <span className={`font-semibold ${getDynamicColor(row.boundaryPct, boundaryPctValues)}`}>
                     {row.boundaryPct.toFixed(1)}%
                   </span>
                 </td>
