@@ -71,13 +71,20 @@ const VenueSlide = ({ venueName }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {tossDecisions.map((decision, index) => (
-                      <tr key={index} className="border-b border-gray-800">
-                        <td className="py-2 px-3 text-gray-200">{decision.toss}</td>
-                        <td className="text-center py-2 px-3 text-gray-200">{decision.batted_first}</td>
-                        <td className="text-center py-2 px-3 text-gray-200">{decision.bowled_first}</td>
-                      </tr>
-                    ))}
+                    {tossDecisions.map((decision, index) => {
+                      const battedFirst = decision.batted_first;
+                      const bowledFirst = decision.bowled_first;
+                      const battedColor = battedFirst > bowledFirst ? 'text-green-500' : battedFirst < bowledFirst ? 'text-red-500' : 'text-gray-200';
+                      const bowledColor = bowledFirst > battedFirst ? 'text-green-500' : bowledFirst < battedFirst ? 'text-red-500' : 'text-gray-200';
+                      
+                      return (
+                        <tr key={index} className="border-b border-gray-800">
+                          <td className="py-2 px-3 text-gray-200">{decision.toss}</td>
+                          <td className={`text-center py-2 px-3 font-semibold ${battedColor}`}>{battedFirst}</td>
+                          <td className={`text-center py-2 px-3 font-semibold ${bowledColor}`}>{bowledFirst}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -104,8 +111,8 @@ const VenueSlide = ({ venueName }) => {
                     {situationDetails.map((situation, index) => (
                       <tr key={index} className="border-b border-gray-800">
                         <td className="py-2 px-3 text-gray-200 text-xs">{situation.situation}</td>
-                        <td className="text-center py-2 px-3 text-gray-200">{situation.wins}</td>
-                        <td className="text-center py-2 px-3 text-gray-200">{situation.losses}</td>
+                        <td className="text-center py-2 px-3 text-green-500 font-semibold">{situation.wins}</td>
+                        <td className="text-center py-2 px-3 text-red-500 font-semibold">{situation.losses}</td>
                         <td className="text-center py-2 px-3 text-gray-200">{situation.no_result}</td>
                       </tr>
                     ))}
