@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import ScatterPlot from './ScatterPlot';
+import StrikeRateZones from './StrikeRateZones';
 import BowlerTypeTable from './BowlerTypeTable';
 import AnalystComments from './AnalystComments';
 import PitchMap from './PitchMap';
@@ -9,31 +9,27 @@ import { API_BASE_URL } from '../config/api';
 const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
   const [insights, setInsights] = useState(null);
   const [bowlingStats, setBowlingStats] = useState(null);
-  const [scatterData, setScatterData] = useState([]);
   const [dismissalData, setDismissalData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const fetchPlayerData = useCallback(async () => {
     try {
       const timestamp = Date.now(); // Cache busting
-      const selectedPlayersParam = selectedPlayers ? selectedPlayers.join(',') : '';
-      const [insightsResponse, bowlingStatsResponse, scatterResponse, dismissalResponse] = await Promise.all([
+      const [insightsResponse, bowlingStatsResponse, dismissalResponse] = await Promise.all([
         axios.get(`${API_BASE_URL}/player/${playerName}/insights?t=${timestamp}`),
         axios.get(`${API_BASE_URL}/player/${playerName}/bowling-stats?t=${timestamp}`),
-        axios.get(`${API_BASE_URL}/scatter-plot-data?selected_players=${encodeURIComponent(selectedPlayersParam)}&t=${timestamp}`),
         axios.get(`${API_BASE_URL}/player/${playerName}/dismissal-locations?t=${timestamp}`)
       ]);
 
       setInsights(insightsResponse.data.insights);
       setBowlingStats(bowlingStatsResponse.data);
-      setScatterData(scatterResponse.data.scatter_data);
       setDismissalData(dismissalResponse.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching player data:', error);
       setLoading(false);
     }
-  }, [playerName, selectedPlayers]);
+  }, [playerName]);
 
   useEffect(() => {
     fetchPlayerData();
@@ -89,16 +85,6 @@ const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
             ))}
           </ul>
         </div>
-
-        {/* Performance Scatter Plot */}
-        <div className="insight-card lg:col-span-2">
-          <h3 className="text-xl font-semibold text-white mb-4">Performance Scatter Plot</h3>
-          <ScatterPlot 
-            data={scatterData} 
-            selectedPlayer={playerName}
-            type="player"
-          />
-        </div>
       </div>
 
       {/* Bowling Stats Table - Full Width */}
@@ -107,6 +93,13 @@ const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
         <BowlerTypeTable 
           data={bowlingStats}
           type="player"
+        />
+      </div>
+
+      {/* Strike Rate Zones Heatmap */}
+      <div className="insight-card mt-6">
+        <StrikeRateZones 
+          playerName={playerName}
         />
       </div>
 

@@ -31,7 +31,7 @@ const BowlerTypeTable = ({ data, type }) => {
       };
     });
 
-  // Dynamic color coding function - highest 2 = green, lowest 2 = red, rest = yellow
+  // Dynamic color coding function - highest 2 = red, lowest 2 = green, rest = yellow
   const getDynamicColor = (value, values, isLowerBetter = false) => {
     // Sort values to find thresholds
     const sortedValues = [...values].sort((a, b) => a - b);
@@ -40,27 +40,27 @@ const BowlerTypeTable = ({ data, type }) => {
     if (uniqueSorted.length <= 2) {
       // If 2 or fewer unique values, use simple logic
       if (isLowerBetter) {
-        return value <= uniqueSorted[0] ? 'text-green-400' : 'text-red-400';
+        return value <= uniqueSorted[0] ? 'text-red-400' : 'text-green-400';
       } else {
-        return value >= uniqueSorted[uniqueSorted.length - 1] ? 'text-green-400' : 'text-red-400';
+        return value >= uniqueSorted[uniqueSorted.length - 1] ? 'text-red-400' : 'text-green-400';
       }
     }
     
     if (isLowerBetter) {
       // For dot ball % - lower is better
       if (value <= uniqueSorted[1]) {
-        return 'text-green-400'; // Lowest 2 values = green
+        return 'text-red-400'; // Lowest 2 values = red (good)
       } else if (value >= uniqueSorted[uniqueSorted.length - 2]) {
-        return 'text-red-400'; // Highest 2 values = red
+        return 'text-green-400'; // Highest 2 values = green (bad)
       } else {
         return 'text-yellow-400'; // Rest = yellow
       }
     } else {
       // For strike rate, average, boundary % - higher is better
       if (value >= uniqueSorted[uniqueSorted.length - 2]) {
-        return 'text-green-400'; // Highest 2 values = green
+        return 'text-red-400'; // Highest 2 values = red (good)
       } else if (value <= uniqueSorted[1]) {
-        return 'text-red-400'; // Lowest 2 values = red
+        return 'text-green-400'; // Lowest 2 values = green (bad)
       } else {
         return 'text-yellow-400'; // Rest = yellow
       }
