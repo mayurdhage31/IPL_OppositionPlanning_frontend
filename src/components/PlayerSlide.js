@@ -46,13 +46,13 @@ const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
   return (
     <div className="slide-container">
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* AI Insights */}
         <div className="insight-card">
-          <h3 className="text-xl font-semibold teal-accent mb-4">AI Insights</h3>
-          <ul className="space-y-3">
+          <h3 className="text-lg font-semibold teal-accent mb-3">AI Insights</h3>
+          <ul className="space-y-2">
             {insights?.ai_insights?.map((insight, index) => (
-              <li key={index} className="text-sm text-gray-200 flex items-start">
+              <li key={index} className="text-xs text-gray-200 flex items-start">
                 <span className="mr-2">•</span>
                 <span>{insight}</span>
               </li>
@@ -62,10 +62,10 @@ const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
 
         {/* Strengths */}
         <div className="insight-card">
-          <h3 className="text-xl font-semibold green-check mb-4">Strengths</h3>
-          <ul className="space-y-3">
+          <h3 className="text-lg font-semibold green-check mb-3">Strengths</h3>
+          <ul className="space-y-2">
             {insights?.strengths?.map((strength, index) => (
-              <li key={index} className="text-sm text-gray-200 flex items-start">
+              <li key={index} className="text-xs text-gray-200 flex items-start">
                 <span className="green-check mr-2">✓</span>
                 <span>{strength}</span>
               </li>
@@ -74,11 +74,11 @@ const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
         </div>
 
         {/* Areas for Improvement */}
-        <div className="insight-card lg:col-span-2">
-          <h3 className="text-xl font-semibold orange-accent mb-4">Areas for Improvement</h3>
-          <ul className="space-y-3">
+        <div className="insight-card">
+          <h3 className="text-lg font-semibold orange-accent mb-3">Areas for Improvement</h3>
+          <ul className="space-y-2">
             {insights?.areas_for_improvement?.map((area, index) => (
-              <li key={index} className="text-sm text-gray-200 flex items-start">
+              <li key={index} className="text-xs text-gray-200 flex items-start">
                 <span className="warning-icon mr-2">⚠</span>
                 <span>{area}</span>
               </li>
@@ -87,33 +87,38 @@ const PlayerSlide = ({ playerName, opposition, selectedPlayers }) => {
         </div>
       </div>
 
-      {/* Bowling Stats Table - Full Width */}
-      <div className="insight-card mt-6">
-        <h3 className="text-xl font-semibold text-white mb-4">Performance vs Bowling Types</h3>
-        <BowlerTypeTable 
-          data={bowlingStats}
-          type="player"
-        />
+      {/* Bowling Stats Table and Strike Rate Zones - Side by Side */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
+        <div className="insight-card">
+          <h3 className="text-lg font-semibold text-white mb-3">Performance vs Bowling Types</h3>
+          <BowlerTypeTable 
+            data={bowlingStats}
+            type="player"
+          />
+        </div>
+
+        <div className="insight-card">
+          <StrikeRateZones 
+            playerName={playerName}
+          />
+        </div>
       </div>
 
-      {/* Strike Rate Zones Heatmap */}
-      <div className="insight-card mt-6">
-        <StrikeRateZones 
-          playerName={playerName}
-        />
-      </div>
+      {/* Pitch Map and Analyst Comments - Side by Side */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+        <div className="insight-card">
+          <h3 className="text-lg font-semibold text-white mb-3">Pitch Map Visualisations: Dismissal Location</h3>
+          <PitchMap 
+            data={dismissalData}
+            playerName={playerName}
+          />
+        </div>
 
-      {/* Pitch Map Visualisation - Full Width */}
-      <div className="insight-card mt-6">
-        <h3 className="text-xl font-semibold text-white mb-4">Pitch Map Visualisations: Dismissal Location</h3>
-        <PitchMap 
-          data={dismissalData}
-          playerName={playerName}
-        />
+        {/* Analyst Comments Section */}
+        <div>
+          <AnalystComments slideId={`player_${playerName}`} />
+        </div>
       </div>
-
-      {/* Analyst Comments Section */}
-      <AnalystComments slideId={`player_${playerName}`} />
     </div>
   );
 };

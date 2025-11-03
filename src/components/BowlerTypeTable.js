@@ -76,25 +76,25 @@ const BowlerTypeTable = ({ data, type }) => {
   return (
     <div className="w-full">
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-600 rounded-lg">
+        <table className="w-full border-collapse border border-gray-600 rounded-lg text-sm">
           <thead>
             <tr className="bg-gray-700">
-              <th className="border border-gray-600 px-4 py-3 text-left text-white font-semibold">
+              <th className="border border-gray-600 px-2 py-3 text-left text-white font-semibold text-xs">
                 Bowler Type
               </th>
-              <th className="border border-gray-600 px-4 py-3 text-center text-white font-semibold">
+              <th className="border border-gray-600 px-2 py-3 text-center text-white font-semibold text-xs">
                 Balls Faced
               </th>
-              <th className="border border-gray-600 px-4 py-3 text-center text-white font-semibold">
+              <th className="border border-gray-600 px-2 py-3 text-center text-white font-semibold text-xs">
                 Strike Rate
               </th>
-              <th className="border border-gray-600 px-4 py-3 text-center text-white font-semibold">
+              <th className="border border-gray-600 px-2 py-3 text-center text-white font-semibold text-xs">
                 Average
               </th>
-              <th className="border border-gray-600 px-4 py-3 text-center text-white font-semibold">
+              <th className="border border-gray-600 px-2 py-3 text-center text-white font-semibold text-xs">
                 Dot Ball %
               </th>
-              <th className="border border-gray-600 px-4 py-3 text-center text-white font-semibold">
+              <th className="border border-gray-600 px-2 py-3 text-center text-white font-semibold text-xs">
                 Boundary %
               </th>
             </tr>
@@ -102,29 +102,29 @@ const BowlerTypeTable = ({ data, type }) => {
           <tbody>
             {tableData.map((row, index) => (
               <tr key={index} className="hover:bg-gray-750 transition-colors">
-                <td className="border border-gray-600 px-4 py-3 text-white font-medium">
+                <td className="border border-gray-600 px-2 py-4 text-white font-medium text-xs">
                   {row.bowlingType}
                 </td>
-                <td className="border border-gray-600 px-4 py-3 text-center text-white font-semibold">
+                <td className="border border-gray-600 px-2 py-4 text-center text-white font-semibold text-xs">
                   {row.balls}
                 </td>
-                <td className="border border-gray-600 px-4 py-3 text-center">
-                  <span className={`font-semibold ${getDynamicColor(row.strikeRate, strikeRateValues)}`}>
+                <td className="border border-gray-600 px-2 py-4 text-center">
+                  <span className={`font-semibold text-xs ${getDynamicColor(row.strikeRate, strikeRateValues)}`}>
                     {row.strikeRate.toFixed(1)}
                   </span>
                 </td>
-                <td className="border border-gray-600 px-4 py-3 text-center">
-                  <span className={`font-semibold ${getDynamicColor(row.average, averageValues)}`}>
+                <td className="border border-gray-600 px-2 py-4 text-center">
+                  <span className={`font-semibold text-xs ${getDynamicColor(row.average, averageValues)}`}>
                     {row.average.toFixed(1)}
                   </span>
                 </td>
-                <td className="border border-gray-600 px-4 py-3 text-center">
-                  <span className={`font-semibold ${getDynamicColor(row.dotPct, dotPctValues, true)}`}>
+                <td className="border border-gray-600 px-2 py-4 text-center">
+                  <span className={`font-semibold text-xs ${getDynamicColor(row.dotPct, dotPctValues, true)}`}>
                     {row.dotPct.toFixed(1)}%
                   </span>
                 </td>
-                <td className="border border-gray-600 px-4 py-3 text-center">
-                  <span className={`font-semibold ${getDynamicColor(row.boundaryPct, boundaryPctValues)}`}>
+                <td className="border border-gray-600 px-2 py-4 text-center">
+                  <span className={`font-semibold text-xs ${getDynamicColor(row.boundaryPct, boundaryPctValues)}`}>
                     {row.boundaryPct.toFixed(1)}%
                   </span>
                 </td>
@@ -135,8 +135,8 @@ const BowlerTypeTable = ({ data, type }) => {
       </div>
       
       {/* Context Information */}
-      <div className="mt-4 p-3 bg-gray-700 rounded-lg">
-        <p className="text-sm text-gray-300">
+      <div className="mt-2 p-2 bg-gray-700 rounded-lg">
+        <p className="text-xs text-gray-300">
           <span className="font-semibold text-teal-400">Data Context:</span> 
           {type === 'player' ? (
             <span> Performance statistics for <span className="text-white font-semibold">{data.player}</span> against different bowling types</span>

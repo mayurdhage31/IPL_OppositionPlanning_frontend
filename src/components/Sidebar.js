@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Sidebar = ({
   teams,
@@ -13,10 +13,36 @@ const Sidebar = ({
   onVenueChange,
   onPlayerSelection,
   onGenerateInsights,
-  showSlides
+  showSlides,
+  isSidebarCollapsed,
+  setIsSidebarCollapsed
 }) => {
+  const isCollapsed = isSidebarCollapsed;
+
   return (
-    <div className="w-80 sidebar p-6 h-screen fixed left-0 top-0 overflow-y-auto">
+    <>
+      {/* Toggle Button */}
+      <button
+        onClick={() => setIsSidebarCollapsed(!isCollapsed)}
+        className="fixed left-0 top-1/2 transform -translate-y-1/2 bg-teal-600 hover:bg-teal-700 text-white p-2 rounded-r-lg z-50 transition-all"
+        style={{ left: isCollapsed ? '0' : '320px' }}
+      >
+        {isCollapsed ? (
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        ) : (
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        )}
+      </button>
+
+      {/* Sidebar */}
+      <div 
+        className="w-80 sidebar p-6 h-screen fixed left-0 top-0 overflow-y-auto transition-transform duration-300"
+        style={{ transform: isCollapsed ? 'translateX(-100%)' : 'translateX(0)' }}
+      >
       <div className="mb-6">
         <h2 className="text-xl font-bold text-white mb-6">Team Selection</h2>
         
@@ -101,7 +127,8 @@ const Sidebar = ({
           </button>
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 };
 

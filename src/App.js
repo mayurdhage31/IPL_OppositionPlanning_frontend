@@ -15,6 +15,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [showSlides, setShowSlides] = useState(false);
   const [apiStatus, setApiStatus] = useState('checking');
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const fetchInitialData = useCallback(async () => {
     try {
@@ -162,8 +163,10 @@ function App() {
           onVenueChange={handleVenueChange}
           onPlayerSelection={handlePlayerSelection}
           onGenerateInsights={handleGenerateInsights}
+          isSidebarCollapsed={isSidebarCollapsed}
+          setIsSidebarCollapsed={setIsSidebarCollapsed}
         />
-        <div className="ml-80">
+        <div className="transition-all duration-300" style={{ marginLeft: isSidebarCollapsed ? '0' : '320px' }}>
           {showSlides && (
             <SlideContainer 
               selectedPlayers={selectedPlayers}

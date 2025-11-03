@@ -3,6 +3,7 @@ import PlayerSlide from './PlayerSlide';
 import TeamSlide from './TeamSlide';
 import OverByOverSlide from './OverByOverSlide';
 import VenueSlide from './VenueSlide';
+import ScreenshotModal from './ScreenshotModal';
 import pptxgen from 'pptxgenjs';
 import axios from 'axios';
 import { API_BASE_URL } from '../config/api';
@@ -14,6 +15,7 @@ const SlideContainer = ({
   showSlides 
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isScreenshotModalOpen, setIsScreenshotModalOpen] = useState(false);
   const slideRef = useRef(null);
 
   if (!showSlides) {
@@ -414,73 +416,70 @@ const SlideContainer = ({
   const currentSlideData = slides[currentSlide];
 
   return (
-    <div className="w-full p-6">
-      {/* Top Header with Navigation Controls */}
-      <div className="flex justify-between items-center mb-6">
-        {/* Left side - empty for spacing */}
-        <div></div>
-        
-        {/* Center - Slide Title and Counter */}
-        <div className="text-center">
-          <p className="text-gray-400 text-sm mb-1">
-            Slide {currentSlide + 1} of {totalSlides}
-          </p>
+    <div className="w-full p-4">
+      {/* Compact Header with Navigation Controls */}
+      <div className="flex justify-between items-center mb-3">
+        {/* Left side - Slide Counter */}
+        <div className="text-gray-400 text-xs">
+          Slide {currentSlide + 1} of {totalSlides}
         </div>
         
-        {/* Right side - Navigation Controls */}
-        <div className="flex items-center space-x-4">
+        {/* Right side - All Controls */}
+        <div className="flex items-center space-x-2">
           {/* Previous Button */}
           <button
             onClick={prevSlide}
             disabled={totalSlides <= 1}
-            className="flex items-center space-x-2 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors"
+            className="bg-teal-600 hover:bg-teal-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-3 py-1 rounded text-sm transition-colors"
           >
-            <span>Previous</span>
+            Previous
           </button>
 
           {/* Next Button */}
           <button
             onClick={nextSlide}
             disabled={totalSlides <= 1}
-            className="flex items-center space-x-2 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors"
+            className="bg-teal-600 hover:bg-teal-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-3 py-1 rounded text-sm transition-colors"
           >
-            <span>Next</span>
+            Next
           </button>
         </div>
       </div>
 
-      {/* Slide Indicators - Centered */}
-      <div className="flex justify-center space-x-2 mb-6">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              index === currentSlide 
-                ? 'bg-teal-500' 
-                : 'bg-gray-600 hover:bg-gray-500'
-            }`}
-          />
-        ))}
-      </div>
+      {/* Slide Indicators and Download Button */}
+      <div className="flex justify-between items-center mb-3">
+        {/* Slide Indicators - Left */}
+        <div className="flex space-x-2">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-2 h-2 rounded-full transition-colors ${
+                index === currentSlide 
+                  ? 'bg-teal-500' 
+                  : 'bg-gray-600 hover:bg-gray-500'
+              }`}
+            />
+          ))}
+        </div>
 
-      {/* Download PPTX Button - Top Right */}
-      <div className="flex justify-end mb-4">
+        {/* Download Button - Right */}
         <button
-          onClick={downloadPPTX}
-          className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+          onClick={() => setIsScreenshotModalOpen(true)}
+          className="bg-teal-600 hover:bg-teal-700 text-white px-3 py-1 rounded text-sm flex items-center space-x-1 transition-colors"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <span>Download PPTX</span>
+          <span>Download with Screenshots</span>
         </button>
       </div>
 
       {/* Slide Content */}
-      <div ref={slideRef} className="slide-content bg-gray-800 rounded-lg p-6 min-h-[600px]">
+      <div ref={slideRef} className="slide-content bg-gray-800 rounded-lg p-4 min-h-[600px]">
         {/* Slide Title */}
-        <h2 className="text-2xl font-bold text-white mb-6">
+        <h2 className="text-2xl font-bold text-white mb-3">
           {currentSlideData.title}
         </h2>
         
@@ -519,6 +518,16 @@ const SlideContainer = ({
           </span>
         ))}
       </div>
+
+      {/* Screenshot Modal */}
+      <ScreenshotModal
+        isOpen={isScreenshotModalOpen}
+        onClose={() => setIsScreenshotModalOpen(false)}
+        slides={slides}
+        selectedOpposition={selectedOpposition}
+        selectedVenue={selectedVenue}
+        selectedPlayers={selectedPlayers}
+      />
 
     </div>
   );

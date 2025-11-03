@@ -115,18 +115,15 @@ const PitchMap = ({ data, playerName }) => {
   };
 
   return (
-    <div className="bg-gray-800 rounded-lg p-6">
-      <div className="text-center mb-4">
-        <h4 className="text-lg font-semibold text-white mb-2">
+    <div className="bg-gray-800 rounded-lg p-3">
+      <div className="text-center mb-2">
+        <h4 className="text-base font-semibold text-white">
           Dismissal Locations for {playerName}
         </h4>
-        <div className="text-sm text-gray-400">
-          Total Dismissals: {data.total_dismissals}
-        </div>
       </div>
       
       <div className="flex justify-center">
-        <svg width="400" height="400" viewBox="0 0 400 400" className="bg-green-600 rounded-full">
+        <svg width="300" height="300" viewBox="0 0 400 400" className="bg-green-600 rounded-full">
           {/* Cricket Ground (Green Circle) */}
           <circle cx="200" cy="200" r="190" fill="#16a34a" stroke="#15803d" strokeWidth="2"/>
           
@@ -200,42 +197,29 @@ const PitchMap = ({ data, playerName }) => {
       </div>
       
       {/* Legend */}
-      <div className="mt-6">
-        <div className="text-sm font-semibold text-white mb-3">Legend (Dismissal Count)</div>
-        <div className="flex flex-wrap justify-center gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-full bg-red-500"></div>
-            <span className="text-xs text-gray-300">Highest ({Math.ceil(maxCount * 0.8)}+)</span>
+      <div className="mt-3">
+        <div className="text-xs font-semibold text-white mb-2">Legend (Dismissal Count)</div>
+        <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex items-center gap-1">
+            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+            <span className="text-xs text-gray-300">Highest</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-orange-500"></div>
-            <span className="text-xs text-gray-300">High ({Math.ceil(maxCount * 0.6)}+)</span>
+          <div className="flex items-center gap-1">
+            <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+            <span className="text-xs text-gray-300">High</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <span className="text-xs text-gray-300">Medium ({Math.ceil(maxCount * 0.4)}+)</span>
+          <div className="flex items-center gap-1">
+            <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+            <span className="text-xs text-gray-300">Medium</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <div className="w-2 h-2 rounded-full bg-green-500"></div>
-            <span className="text-xs text-gray-300">Low ({Math.ceil(maxCount * 0.2)}+)</span>
+            <span className="text-xs text-gray-300">Low</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <div className="w-2 h-2 rounded-full bg-cyan-500"></div>
-            <span className="text-xs text-gray-300">Lowest (1+)</span>
+            <span className="text-xs text-gray-300">Lowest</span>
           </div>
-        </div>
-      </div>
-      
-      {/* Top dismissal locations */}
-      <div className="mt-6">
-        <div className="text-sm font-semibold text-white mb-3">Top Dismissal Locations</div>
-        <div className="grid grid-cols-2 gap-2">
-          {data.dismissal_locations.slice(0, 6).map((dismissal, index) => (
-            <div key={index} className="flex justify-between items-center text-xs">
-              <span className="text-gray-300 capitalize">{dismissal.position}</span>
-              <span className="text-white font-medium">{dismissal.count}</span>
-            </div>
-          ))}
         </div>
       </div>
     </div>
