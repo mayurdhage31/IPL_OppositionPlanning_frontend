@@ -3,6 +3,7 @@ import PlayerSlide from './PlayerSlide';
 import TeamSlide from './TeamSlide';
 import OverByOverSlide from './OverByOverSlide';
 import VenueSlide from './VenueSlide';
+import NBASlide from './NBASlide';
 import ScreenshotModal from './ScreenshotModal';
 import pptxgen from 'pptxgenjs';
 import axios from 'axios';
@@ -70,6 +71,14 @@ const SlideContainer = ({
       index: slides.length + 1
     });
   }
+
+  // Add NBA slide (always at the end)
+  slides.push({
+    type: 'nba',
+    data: 'Lakers vs Mavericks',
+    title: 'NBA Matchup: Lakers vs Mavericks',
+    index: slides.length + 1
+  });
 
   const totalSlides = slides.length;
 
@@ -334,6 +343,28 @@ const SlideContainer = ({
             fontFace: 'Arial',
             color: '000000'
           });
+        } else if (slides[i].type === 'nba') {
+          // Add NBA matchup analysis content
+          slide.addText('NBA Matchup Analysis:', {
+            x: 0.5,
+            y: 1.2,
+            w: 12,
+            h: 0.4,
+            fontSize: 18,
+            fontFace: 'Arial',
+            color: '10b981',
+            bold: true
+          });
+          
+          slide.addText('• Lakers vs Mavericks head-to-head comparison\n• Team performance statistics and trends\n• Player-by-player matchup analysis\n• Quarter-by-quarter scoring patterns\n• Strategic insights and recommendations', {
+            x: 0.5,
+            y: 1.7,
+            w: 12,
+            h: 2.5,
+            fontSize: 14,
+            fontFace: 'Arial',
+            color: '000000'
+          });
         }
         
         // Add analyst comments section
@@ -346,6 +377,8 @@ const SlideContainer = ({
           slideId1 = `overbyover_${slides[i].data}`;
         } else if (slides[i].type === 'venue') {
           slideId1 = `venue_${slides[i].data}`;
+        } else if (slides[i].type === 'nba') {
+          slideId1 = `nba_${slides[i].data}`;
         }
         
         const comments1 = localStorage.getItem(`analyst_comments_${slideId1}`);
@@ -502,6 +535,10 @@ const SlideContainer = ({
         {currentSlideData.type === 'venue' && (
           <VenueSlide venueName={currentSlideData.data} />
         )}
+        
+        {currentSlideData.type === 'nba' && (
+          <NBASlide />
+        )}
       </div>
 
 
@@ -513,6 +550,7 @@ const SlideContainer = ({
             {slide.type === 'team' && '🏏'}
             {slide.type === 'overbyover' && '📊'}
             {slide.type === 'venue' && '🏟️'}
+            {slide.type === 'nba' && '🏀'}
             {slide.title.split(': ')[1]}
             {index < slides.length - 1 && ' → '}
           </span>
