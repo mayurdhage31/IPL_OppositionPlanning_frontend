@@ -57,7 +57,47 @@ const VenueSlide = ({ venueName }) => {
 
         {/* Toss Decision Tables - Side by Side */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Toss Decisions Table */}
+          {/* Toss Situation Details Table - NOW ON LEFT */}
+          <div className="insight-card">
+            <h3 className="text-xl font-semibold text-teal-400 mb-4">Toss Situation Details</h3>
+            {situationDetails.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="w-full text-base">
+                  <thead>
+                    <tr className="border-b border-gray-700">
+                      <th className="text-left py-3 px-3 text-gray-300 text-base">Situation</th>
+                      <th className="text-center py-3 px-3 text-gray-300 text-base">Wins</th>
+                      <th className="text-center py-3 px-3 text-gray-300 text-base">Losses</th>
+                      <th className="text-center py-3 px-3 text-gray-300 text-base">No Result</th>
+                      <th className="text-center py-3 px-3 text-teal-400 text-base font-bold bg-teal-900 bg-opacity-30">Percentage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {situationDetails.map((situation, index) => {
+                      const wins = situation.wins || 0;
+                      const losses = situation.losses || 0;
+                      const totalGames = wins + losses;
+                      const percentage = totalGames > 0 ? ((wins / totalGames) * 100).toFixed(2) : '0.00';
+                      
+                      return (
+                        <tr key={index} className="border-b border-gray-800">
+                          <td className="py-3 px-3 text-gray-200 text-sm">{situation.situation}</td>
+                          <td className="text-center py-3 px-3 text-green-500 font-semibold text-base">{wins}</td>
+                          <td className="text-center py-3 px-3 text-red-500 font-semibold text-base">{losses}</td>
+                          <td className="text-center py-3 px-3 text-gray-200 text-base">{situation.no_result}</td>
+                          <td className="text-center py-3 px-3 text-teal-400 font-bold text-lg bg-teal-900 bg-opacity-30">{percentage}%</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p className="text-gray-400 text-sm">No situation details available</p>
+            )}
+          </div>
+
+          {/* Toss Decisions Table - NOW ON RIGHT */}
           <div className="insight-card">
             <h3 className="text-xl font-semibold text-teal-400 mb-4">Toss Decisions</h3>
             {tossDecisions.length > 0 ? (
@@ -90,37 +130,6 @@ const VenueSlide = ({ venueName }) => {
               </div>
             ) : (
               <p className="text-gray-400 text-sm">No toss decision data available</p>
-            )}
-          </div>
-
-          {/* Toss Situation Details Table */}
-          <div className="insight-card">
-            <h3 className="text-xl font-semibold text-teal-400 mb-4">Toss Situation Details</h3>
-            {situationDetails.length > 0 ? (
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-gray-700">
-                      <th className="text-left py-2 px-3 text-gray-300">Situation</th>
-                      <th className="text-center py-2 px-3 text-gray-300">Wins</th>
-                      <th className="text-center py-2 px-3 text-gray-300">Losses</th>
-                      <th className="text-center py-2 px-3 text-gray-300">No Result</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {situationDetails.map((situation, index) => (
-                      <tr key={index} className="border-b border-gray-800">
-                        <td className="py-2 px-3 text-gray-200 text-xs">{situation.situation}</td>
-                        <td className="text-center py-2 px-3 text-green-500 font-semibold">{situation.wins}</td>
-                        <td className="text-center py-2 px-3 text-red-500 font-semibold">{situation.losses}</td>
-                        <td className="text-center py-2 px-3 text-gray-200">{situation.no_result}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <p className="text-gray-400 text-sm">No situation details available</p>
             )}
           </div>
         </div>
