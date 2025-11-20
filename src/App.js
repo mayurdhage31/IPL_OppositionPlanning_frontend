@@ -86,11 +86,11 @@ function App() {
           'Virat Kohli',
           'Faf du Plessis',
           'Glenn Maxwell',
-          'Dinesh Karthik',
+          'Will Jacks',
+          'Cameron Green',
           'Rajat Patidar',
-          'AB de Villiers',
-          'Wanindu Hasaranga',
-          'Harshal Patel',
+          'Dinesh Karthik',
+          'Lockie Ferguson',
           'Mohammed Siraj'
         ]);
       } else {
