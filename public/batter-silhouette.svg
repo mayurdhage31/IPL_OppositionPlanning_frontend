@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300" fill="#4A4A4A">
+  <!-- Batter silhouette from provided image -->
+  <g>
+    <!-- Helmet -->
+    <ellipse cx="100" cy="35" rx="22" ry="20" />
+    <path d="M 85 30 Q 100 25 115 30" stroke="#E5E7EB" stroke-width="2" fill="none"/>
+    <rect x="78" y="35" width="8" height="15" rx="2"/>
+    <rect x="114" y="35" width="8" height="15" rx="2"/>
+    
+    <!-- Face guard -->
+    <rect x="95" y="38" width="2" height="12" fill="#E5E7EB"/>
+    <rect x="103" y="38" width="2" height="12" fill="#E5E7EB"/>
+    <rect x="90" y="42" width="20" height="1" fill="#E5E7EB"/>
+    <rect x="90" y="46" width="20" height="1" fill="#E5E7EB"/>
+    
+    <!-- Neck/Collar -->
+    <path d="M 90 50 L 85 60 L 115 60 L 110 50 Z"/>
+    
+    <!-- Upper body/Torso -->
+    <path d="M 85 60 Q 70 80 75 120 L 75 140 Q 75 145 80 145 L 120 145 Q 125 145 125 140 L 125 120 Q 130 80 115 60 Z"/>
+    
+    <!-- Shoulder pads outline -->
+    <ellipse cx="75" cy="70" rx="12" ry="18" opacity="0.3" fill="#E5E7EB"/>
+    <ellipse cx="125" cy="70" rx="12" ry="18" opacity="0.3" fill="#E5E7EB"/>
+    
+    <!-- Left arm (bat holding) -->
+    <path d="M 80 75 Q 60 85 55 110 L 50 130" stroke-width="10" stroke-linecap="round" fill="none"/>
+    
+    <!-- Right arm (bat holding) -->
+    <path d="M 120 80 Q 130 100 125 125" stroke-width="10" stroke-linecap="round" fill="none"/>
+    
+    <!-- Cricket bat -->
+    <rect x="40" y="120" width="18" height="100" rx="8" fill="#8B6F47"/>
+    <rect x="40" y="210" width="18" height="15" rx="3" fill="#654321"/>
+    <line x1="45" y1="130" x2="45" y2="205" stroke="#E5E7EB" stroke-width="1" opacity="0.3"/>
+    <line x1="53" y1="130" x2="53" y2="205" stroke="#E5E7EB" stroke-width="1" opacity="0.3"/>
+    
+    <!-- Gloves -->
+    <ellipse cx="50" cy="130" rx="8" ry="10" fill="#E5E7EB"/>
+    <ellipse cx="125" cy="125" rx="8" ry="10" fill="#E5E7EB"/>
+    
+    <!-- Lower body/Hips -->
+    <path d="M 80 145 L 75 160 L 70 200 L 75 200 L 85 160 L 115 160 L 125 200 L 130 200 L 125 160 L 120 145 Z"/>
+    
+    <!-- Left leg (front) with pads -->
+    <path d="M 75 200 L 70 240 L 68 270" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <rect x="62" y="200" width="16" height="60" rx="3" fill="#FFFFFF" opacity="0.9"/>
+    <line x1="66" y1="205" x2="66" y2="255" stroke="#4A4A4A" stroke-width="1"/>
+    <line x1="70" y1="205" x2="70" y2="255" stroke="#4A4A4A" stroke-width="1"/>
+    <line x1="74" y1="205" x2="74" y2="255" stroke="#4A4A4A" stroke-width="1"/>
+    
+    <!-- Right leg (back) with pads -->
+    <path d="M 125 200 L 128 235 L 130 265" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <rect x="120" y="200" width="16" height="55" rx="3" fill="#FFFFFF" opacity="0.9"/>
+    <line x1="124" y1="205" x2="124" y2="250" stroke="#4A4A4A" stroke-width="1"/>
+    <line x1="128" y1="205" x2="128" y2="250" stroke="#4A4A4A" stroke-width="1"/>
+    <line x1="132" y1="205" x2="132" y2="250" stroke="#4A4A4A" stroke-width="1"/>
+    
+    <!-- Shoes -->
+    <ellipse cx="68" cy="275" rx="12" ry="6" fill="#1F2937"/>
+    <ellipse cx="130" cy="270" rx="12" ry="6" fill="#1F2937"/>
+    <rect x="56" y="272" width="12" height="6" fill="#1F2937"/>
+    <rect x="118" y="267" width="12" height="6" fill="#1F2937"/>
+  </g>
+</svg>
