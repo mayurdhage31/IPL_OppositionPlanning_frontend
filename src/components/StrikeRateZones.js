@@ -88,7 +88,7 @@ const StrikeRateZones = ({ playerName }) => {
       </div>
 
       {/* Heatmap Grid with Batter Silhouette */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-start gap-3">
         {/* Strike Rate Zones Table */}
         <div className="relative rounded-lg p-4 overflow-hidden flex-1 bg-gray-800">
         <div className="relative z-10">
@@ -136,13 +136,13 @@ const StrikeRateZones = ({ playerName }) => {
         </div>
         </div>
 
-        {/* Batter Silhouette - Enlarged and positioned closer */}
-        <div className="flex items-center justify-center" style={{ width: '120px', height: '340px' }}>
+        {/* Batter Silhouette - Aligned with grid */}
+        <div className="flex items-start justify-center pt-6" style={{ width: '120px' }}>
           <img 
             src="/batter_silhoutte.webp" 
             alt="Batter Stance" 
             className="opacity-70"
-            style={{ width: '120px', height: 'auto', maxHeight: '340px' }}
+            style={{ width: '120px', height: 'auto' }}
           />
         </div>
       </div>
